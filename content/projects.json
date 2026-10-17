@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "xflow",
+    "title": "xflow SaaS",
+    "category": "SaaS / AI Workflow",
+    "role": "Lead Product Designer",
+    "year": "2024",
+    "shortDescription": "AI-powered scheduling and business analysis workflow tool for complex enterprise data projects.",
+    "overview": "Xflow simplifies the business analysis process for complex data projects by integrating AI-assisted requirement gathering with visual data modeling.",
+    "problem": "Business Analysts face massive inefficiencies when scoping data architectures, characterized by fragmented stakeholder collaboration, slow requirement elicitation, and lack of rapid prototyping.",
+    "solution": "Designed an end-to-end AI-assisted canvas and requirement gathering dashboard that integrates seamlessly with Jira and Azure DevOps, cutting scoping time significantly.",
+    "impact": "Reduced requirement turnaround cycles by 40% and improved cross-functional alignment between engineering and product teams.",
+    "tags": ["AI SaaS", "Design Systems", "Enterprise", "Workflow Automation"],
+    "isFeatured": true,
+    "status": "published"
+  },
+  {
+    "slug": "sitara",
+    "title": "Sitara SaaS",
+    "category": "B2B SaaS",
+    "role": "Senior Product Designer",
+    "year": "2023",
+    "shortDescription": "Next-generation workflow and collaboration platform designed to streamline operational bottlenecks.",
+    "overview": "A cloud-based workspace helping teams automate repetitive operational tasks and maintain real-time visibility across project lifecycles.",
+    "problem": "Disjointed toolchains forced operators to switch contexts constantly, resulting in lost updates and high onboarding times.",
+    "solution": "Architected a unified modular interface with custom dashboarding and a robust design system.",
+    "impact": "Increased user retention by 25% and reduced task completion times across active enterprise teams.",
+    "tags": ["B2B SaaS", "Design System", "Product Strategy"],
+    "isFeatured": true,
+    "status": "published"
+  },
+  {
+    "slug": "fingo",
+    "title": "Fingo Fintech",
+    "category": "Fintech",
+    "role": "Product Design Lead",
+    "year": "2023",
+    "shortDescription": "Modern fintech solution reimagining consumer lending, credit scoring, and transparent digital finance.",
+    "overview": "A digital lending and financial tracking application focused on simplifying credit access with transparent terms.",
+    "problem": "Opaque financial terms and complex onboarding flows led to drop-offs exceeding 60% during user verification.",
+    "solution": "Redesigned the multi-step verification pipeline with progressive disclosure, clear micro-interactions, and visual status trackers.",
+    "impact": "Drop-off rates decreased by 32%, with positive user feedback on onboarding clarity.",
+    "tags": ["Fintech", "Mobile UX", "Financial Inclusion"],
+    "isFeatured": true,
+    "status": "published"
+  },
+  {
+    "slug": "my4score",
+    "title": "My4 Score",
+    "category": "Mobile App",
+    "role": "Lead UX/UI Designer",
+    "year": "2022",
+    "shortDescription": "Empowering users with real-time credit score insights, analytics, and actionable financial wellness steps.",
+    "overview": "Mobile financial management and credit-health application providing real-time credit score tracking and personalized improvement recommendations.",
+    "problem": "Users struggled to understand the factors affecting their credit scores due to convoluted financial jargon.",
+    "solution": "Created an intuitive visual health meter and step-by-step credit repair roadmap with gamified milestones.",
+    "impact": "Achieved a 4.7-star App Store rating and doubled weekly active user engagement.",
+    "tags": ["Mobile App", "Fintech", "Gamification"],
+    "isFeatured": true,
+    "status": "published"
+  }
+]

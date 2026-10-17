@@ -1,0 +1,28 @@
+[
+  {
+    "company": "Accenture",
+    "client": "Visa",
+    "role": "Senior Product Designer / Product Design Lead",
+    "period": "April 2025 – Present",
+    "location": "Hyderabad / Bengaluru / Hybrid",
+    "highlights": [
+      "Leading enterprise UX initiatives for global payment and financial infrastructure (public-safe scope).",
+      "Contributing to scalable, accessible design systems adhering strictly to WCAG AAA standards and global payment compliance guidelines.",
+      "Collaborating seamlessly with cross-functional distributed teams including product managers, software architects, and business stakeholders."
+    ],
+    "status": "published"
+  },
+  {
+    "company": "Beyondscale & Product Studios",
+    "client": "Multiple SaaS & Fintech Clients",
+    "role": "Lead Product Designer",
+    "period": "2021 – 2025",
+    "location": "Remote / Hyderabad",
+    "highlights": [
+      "Spearheaded design strategies for high-growth SaaS platforms including xflow, Sitara, and Fingo.",
+      "Built comprehensive 0-to-1 design systems in Figma, reducing front-end implementation time by over 30%.",
+      "Mentored 100+ designers across UI/UX fundamentals, design systems, and design sprint methodologies."
+    ],
+    "status": "published"
+  }
+]
