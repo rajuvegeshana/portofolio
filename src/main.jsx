@@ -16,7 +16,7 @@ import Admin from './pages/Admin';
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/portofolio">
         <div className="flex flex-col min-h-screen bg-theme-bg text-theme-text font-sans">
           <Navbar />
           <main className="flex-grow">
