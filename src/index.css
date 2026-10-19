@@ -12,6 +12,12 @@
   --border-color: #E5E4E0;
   --accent-color: #C85A32;
   --card-bg: #FFFFFF;
+  --bg-rgb: 250 249 246;
+  --text-rgb: 26 26 26;
+  --muted-rgb: 102 102 102;
+  --border-rgb: 229 228 224;
+  --accent-rgb: 200 90 50;
+  --card-rgb: 255 255 255;
   --font-heading: 'Instrument Serif', serif;
   --font-body: 'Inter', sans-serif;
 }
@@ -24,6 +30,12 @@
   --border-color: #E2E8F0;
   --accent-color: #2563EB;
   --card-bg: #F8FAFC;
+  --bg-rgb: 255 255 255;
+  --text-rgb: 15 23 42;
+  --muted-rgb: 100 116 139;
+  --border-rgb: 226 232 240;
+  --accent-rgb: 37 99 235;
+  --card-rgb: 248 250 252;
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
 }
@@ -36,6 +48,12 @@
   --border-color: #1E293B;
   --accent-color: #818CF8;
   --card-bg: #13151F;
+  --bg-rgb: 13 14 21;
+  --text-rgb: 248 250 252;
+  --muted-rgb: 148 163 184;
+  --border-rgb: 30 41 59;
+  --accent-rgb: 129 140 248;
+  --card-rgb: 19 21 31;
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
 }

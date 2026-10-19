@@ -8,12 +8,12 @@ export default {
     extend: {
       colors: {
         theme: {
-          bg: 'var(--bg-color)',
-          text: 'var(--text-color)',
-          muted: 'var(--muted-color)',
-          border: 'var(--border-color)',
-          accent: 'var(--accent-color)',
-          card: 'var(--card-bg)',
+          bg: 'rgb(var(--bg-rgb) / <alpha-value>)',
+          text: 'rgb(var(--text-rgb) / <alpha-value>)',
+          muted: 'rgb(var(--muted-rgb) / <alpha-value>)',
+          border: 'rgb(var(--border-rgb) / <alpha-value>)',
+          accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
+          card: 'rgb(var(--card-rgb) / <alpha-value>)',
         }
       },
       fontFamily: {

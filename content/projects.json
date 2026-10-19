@@ -1,5 +1,49 @@
 [
   {
+    "slug": "visa-ops-console",
+    "title": "Visa Ops Console",
+    "client": "Visa (via Accenture)",
+    "category": "Fintech Infrastructure",
+    "role": "Senior Product Designer / Design Lead",
+    "year": "2025",
+    "shortDescription": "Designed a network-policy check for Visa's internal operations console, so engineers can verify infrastructure changes without false confidence.",
+    "overview": "An internal operations console used by platform engineers to run and troubleshoot the backend services that payment infrastructure depends on. Think of it as a control panel for operational work — scaling services, checking network policy, database operations. It is not customer-facing and does not generate revenue directly. Its value is making sure critical infrastructure work is done safely and traceably.",
+    "problem": "A routine network-policy check lived on a separate platform. That platform could report a change as successful while silently failing to apply it, and this failure mode had already contributed to a production incident affecting a payment service. The risk was not inconvenience — it was an operations tool creating false confidence about the true state of infrastructure.",
+    "solution": "I brought the policy check into the console, but deliberately did not recreate the external workflow and show a green success state. Instead I designed around what the system can actually verify: the interface distinguishes 'request submitted' from 'verified applied', and points engineers to the external source when authoritative confirmation is still required.",
+    "impact": "The network-policy workflow shipped and is live. Because this is internal tooling for a small, expert audience, I measure it by risk reduction and workflow change rather than invented adoption percentages: routine checks no longer require leaving the console, and the interface no longer implies a certainty the backend cannot guarantee.",
+    "contributions": [
+      "Scoped the feature against the real failure mode, not the happy path",
+      "Wireframes and interaction design for verification states",
+      "Design reviews with engineering stakeholders",
+      "Escalated the false-success constraint so it was addressed explicitly"
+    ],
+    "decisions": [
+      {
+        "title": "Show verification state, not just execution state",
+        "body": "A submitted policy change and a verified policy change are different facts. The console shows them differently, so a green result always means the change was confirmed rather than merely requested."
+      },
+      {
+        "title": "Keep the external system one click away",
+        "body": "I did not try to replace the authoritative source. The console removes the context switch for routine checks while preserving a direct path to the external tool whenever authoritative verification is still needed."
+      },
+      {
+        "title": "Design for a small, expert audience",
+        "body": "Users are platform engineers already fluent in namespaces, pods and ports. I spent the effort on accuracy and traceability rather than on simplification that would have removed detail they actually rely on."
+      }
+    ],
+    "outcomes": [
+      "Network-policy workflow shipped and is live",
+      "Routine policy checks no longer require leaving the console",
+      "Removed a known false-success failure mode that had contributed to a production incident",
+      "Layout and patterns reused as the basis for further operational features"
+    ],
+    "systemsWork": "As the console grew across more operational capabilities, designers were repeatedly rebuilding the same structural decisions: how an operation behaves, which screens are required, what belongs in an audit trail. I helped build a reusable design-system process that encodes those decisions once and enforces them on new work, including a strict convention to flag missing information rather than fabricate it — so an AI-assisted system cannot quietly invent a requirement that looks authoritative downstream.",
+    "explainShort": "I work on an internal operations console that platform engineers use to manage and troubleshoot the infrastructure behind payment services. My work sits at two levels. At the feature level, I brought a network-policy check into the console after a real incident showed the external system could report success without applying the change, so I designed around that false-confidence risk. At the systems level, I helped build a reusable design process that encodes the console's rules and evidence requirements so new features stay consistent as the product grows.",
+    "tags": ["Fintech", "Internal Tools", "Design Systems", "Infrastructure", "Enterprise UX"],
+    "isFeatured": true,
+    "status": "published"
+  },
+  {
     "slug": "xflow",
     "title": "xflow SaaS",
     "category": "SaaS / AI Workflow",
