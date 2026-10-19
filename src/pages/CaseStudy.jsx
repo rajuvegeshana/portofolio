@@ -33,7 +33,8 @@ export default function CaseStudy() {
   }
 
   const published = projectsData.filter(p => p.status === 'published');
-  const next = published[(idx + 1) % published.length];
+  const publishedIdx = published.findIndex(p => p.slug === slug);
+  const next = publishedIdx >= 0 ? published[(publishedIdx + 1) % published.length] : null;
 
   const meta = [
     { label: 'Role', value: project.role },

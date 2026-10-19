@@ -60,7 +60,7 @@ export default function About() {
           <GraduationCap className="w-6 h-6 text-theme-accent" /> Teaching & Mentorship
         </h2>
         <p className="text-theme-muted leading-relaxed">
-          Committed to giving back to the design community. Over the past several years, I have mentored 100+ aspiring UI/UX designers, conducted portfolio reviews, and led workshops on design systems and agile product design.
+          Committed to giving back to the design community. Over the past several years, I have mentored 20+ students and junior designers across UI/UX fundamentals, design systems and agile product design, conducted portfolio reviews, and led workshops.
         </p>
       </section>
     </div>

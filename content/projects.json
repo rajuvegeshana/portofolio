@@ -1,5 +1,55 @@
 [
   {
+    "slug": "zenith",
+    "title": "Zenith — Enterprise Developer Platform",
+    "client": "Internal platform",
+    "category": "Enterprise Developer Platform",
+    "role": "Senior Product Designer",
+    "year": "2025",
+    "shortDescription": "An internal self-service platform where developers request and configure infrastructure. I designed the end-to-end journey from application onboarding to provisioning status.",
+    "overview": "An internal self-service infrastructure platform used by application and platform teams to request and configure infrastructure without filing tickets and chasing approvals by hand. My work covered application onboarding, the environment and service canvas, service configuration, the review and approval flow, and provisioning status. This is design and planning work — the product has not launched.",
+    "problem": "Requesting infrastructure was spread across disconnected workflows. Manual tickets carried the request, configuration was duplicated in whatever form the service happened to need, it was unclear who had to approve what, and once a request was in flight there was no reliable way to see what state it was in. The people doing this work were engineers who already had the domain knowledge — the friction was in the workflow, not in their understanding of it.",
+    "solution": "I designed one continuous journey instead of a set of disconnected screens: Application → Environment → Service Canvas → Configuration → Review and Approval → Provisioning → Status → Day-2 operations. Three things carried most of the weight. Services describe their own configuration fields, so a single form component renders every service instead of each service needing its own screen. Review is by exception, so an approver spends attention on what deviates from the standard path rather than line-by-line on routine requests. And an approval is bound to the exact draft it was granted for, so nothing can change after sign-off without being approved again.",
+    "impact": "To be direct about where this stands: the work reached the design and planning stage and has not launched, so there are no confirmed outcome metrics and nothing here claims a production launch or a proven efficiency gain. What I can show is the design itself — the journey, the configuration model, the approval rules and the status language — and the reasoning behind each one. What remains unvalidated is the part that would come next: real usage data, and whether the approval-by-exception model holds up once the request volume and request types are real rather than modelled.",
+    "contributions": [
+      "Application onboarding flow and the environment / service canvas structure",
+      "Schema-driven configuration form system used across services",
+      "Review and approval flow, including the rule that binds an approval to a specific draft",
+      "Provisioning status and severity messaging across the full state model",
+      "AI-assisted prototyping using Figma Make and Claude Code Skills to iterate on the flow quickly with stakeholders",
+      "Design reviews with backend and platform stakeholders, translating system constraints into interface behaviour"
+    ],
+    "decisions": [
+      {
+        "title": "Schema-driven forms, so services vary by data instead of by screen",
+        "body": "The obvious route was a bespoke configuration screen per service, and it is the route that quietly does not scale: every new service becomes a new design problem, and the same field behaves differently in every place it appears. Instead, each service declares its own configuration fields and one form component renders them. Adding a service becomes a configuration change, and the same field type behaves identically everywhere."
+      },
+      {
+        "title": "Approval by exception",
+        "body": "If every request needs a full review, approvers stop reading carefully and approval becomes a formality. I designed review so the approver sees what deviates from the standard path first, and the routine case passes without a line-by-line read. The people approving stay engaged because their attention is spent on the requests that actually need it."
+      },
+      {
+        "title": "One vocabulary for status and severity",
+        "body": "Provisioning failures are read under pressure, often by people who did not file the request. When each service invents its own labels, interpretation becomes part of the work. I standardised the status and severity messaging so that a label carries the same meaning everywhere in the product, and so the interface can be read without prior context."
+      },
+      {
+        "title": "An approval applies to the draft it was granted for",
+        "body": "If a configuration changes after approval, the approval no longer means anything — the approver signed off on something that no longer exists. I bound every approval to the specific draft it was given for, so any subsequent change invalidates it and requires a fresh approval. It removes a whole class of silent drift between what was reviewed and what gets provisioned."
+      }
+    ],
+    "outcomes": [
+      "The end-to-end provisioning journey was designed and prototyped end to end",
+      "The schema-driven configuration model and the approval-bound-to-draft rule were reviewed with platform and backend stakeholders",
+      "Status and severity messaging was standardised across the provisioning state model",
+      "The work remains in design and planning — it has not launched, and no outcome metrics are confirmed"
+    ],
+    "systemsWork": "Provisioning has more structural decisions than it first appears: what state a request is in, who is allowed to approve it, what must be true before it can proceed, and how failure is communicated. In a product assembled from disconnected workflows, each of those gets re-decided per screen and per service, and the answers drift apart. The schema-driven form system is the clearest example of the alternative — service-specific variation expressed as data, while the rules that apply to every service live in one place. The same logic runs through the status and severity vocabulary: a shared language for shared states, so that adding the tenth service does not mean inventing the tenth status screen. The work I did here was less about individual screens and more about finding which decisions should be made once, systemically, and which genuinely belong to the specific service.",
+    "explainShort": "Zenith is an internal platform where developers request and configure infrastructure. When I joined, that work was scattered — tickets for one thing, forms for another, approvals by email, and no clear way to see where a request had got to. My job was to turn it into a single guided journey: apply, choose an environment, configure the services, get it approved, watch it provision. Two ideas carry most of the work. First, services describe their own configuration fields, so a single form covers every service and adding a new one stops being a design project. Second, an approval only applies to the exact draft it was granted for — change anything afterwards and it has to be approved again, so nobody signs off a version they did not see. The honest caveat: this reached design and planning but has not launched, so I cannot show you adoption or time saved. What I can show is the design and the reasoning, and what I would want tested next.",
+    "tags": ["Enterprise Platform", "Workflow Design", "Schema-driven UI", "Prototyping", "Design Systems"],
+    "isFeatured": true,
+    "status": "published"
+  },
+  {
     "slug": "visa-ops-console",
     "title": "Visa Ops Console",
     "client": "Visa (via Accenture)",
@@ -45,47 +95,192 @@
   },
   {
     "slug": "xflow",
-    "title": "xflow SaaS",
-    "category": "SaaS / AI Workflow",
+    "title": "Xflow — Data Product & Design System",
+    "category": "Enterprise Data Product",
     "role": "Lead Product Designer",
     "year": "2024",
-    "shortDescription": "AI-powered scheduling and business analysis workflow tool for complex enterprise data projects.",
-    "overview": "Xflow simplifies the business analysis process for complex data projects by integrating AI-assisted requirement gathering with visual data modeling.",
-    "problem": "Business Analysts face massive inefficiencies when scoping data architectures, characterized by fragmented stakeholder collaboration, slow requirement elicitation, and lack of rapid prototyping.",
-    "solution": "Designed an end-to-end AI-assisted canvas and requirement gathering dashboard that integrates seamlessly with Jira and Azure DevOps, cutting scoping time significantly.",
-    "impact": "Reduced requirement turnaround cycles by 40% and improved cross-functional alignment between engineering and product teams.",
-    "tags": ["AI SaaS", "Design Systems", "Enterprise", "Workflow Automation"],
+    "shortDescription": "A complex enterprise data product built around cell-level lineage, large datasets and permissions — where I moved the interface from a general-purpose component library onto a design system built for dense data work.",
+    "overview": "An enterprise data product for teams working with large tables of data who need to trace where any value came from and rely on permissions to control who can see and change what. My documented work: moving the interface off Ant Design onto a custom design system, developing the reusable components that made that possible, supporting business-analysis requirements and prototyping, and handling a migration experience built around a stated 150,000-row limit.",
+    "problem": "The product had grown on Ant Design, which is a strong general-purpose component library but was never designed for dense, data-heavy surfaces. On grids, filters and lineage views the same interaction behaved differently from module to module, because each feature had re-decided the basics. New work kept re-litigating table density, selection behaviour, and empty and error states, and the result was an interface that looked consistent but did not behave consistently.",
+    "solution": "I moved the product onto a custom design system built for the work it actually does. The foundation is a table and grid layer with one shared model of density, selection, sorting and state, which is what most of the product is made of. On top of that I built the components the general-purpose library could not provide: cell-level lineage, permission surfaces, and the migration experience for large data volumes. Alongside this I supported business-analysis requirement work and prototyping, so the system was shaped by real requirements rather than by a component inventory.",
+    "impact": "What I can evidence here is the design-system transition itself: the move off Ant Design, the component work that followed, and the dense-data patterns that came out of it. I am deliberately not attaching performance or adoption percentages to it, because I do not have approved evidence for those and the project's delivery details are not confirmed. The 150,000-row limit is referenced because it shaped the migration design, but the exact meaning of that limit and its disclosure status need confirming before I describe what it does to the experience. The honest framing of this project is a systems project: the value is the consistency the product gained underneath, and that is what I would want to be measured against.",
+    "contributions": [
+      "Transitioned the product from Ant Design to a custom design system",
+      "Built the reusable component layer, starting with the table and grid foundation",
+      "Designed cell-level lineage as a first-class object rather than an overlay",
+      "Designed permission surfaces and states for the data product",
+      "Supported business-analysis requirement gathering and prototyping",
+      "Designed the migration experience around the stated 150,000-row limit"
+    ],
+    "decisions": [
+      {
+        "title": "Own the components instead of configuring a general-purpose library",
+        "body": "Ant Design is excellent for general UI, and the temptation was to keep configuring it. But the hardest surfaces here — dense grids, lineage, permission matrices — are not general, and a general library will always treat them as an edge case. Owning the components was the only way to make the parts that carry the most risk behave predictably."
+      },
+      {
+        "title": "Density is a first-class property, not a variant",
+        "body": "In a data product, how much information fits on screen is a core decision, not a styling option. I made density an explicit property of the table foundation so that dense and comfortable views are both first-class and predictable, rather than each surface inventing its own row height and padding."
+      },
+      {
+        "title": "Lineage is a designed object, not a hover state",
+        "body": "Cell-level lineage is how a user earns trust in what they are looking at. If it only exists in a tooltip, it is a curiosity rather than a feature. I designed it as an object with its own entry points, states and navigation, so a user can follow a value's origin deliberately instead of discovering it by accident."
+      },
+      {
+        "title": "Make the row limit visible in the migration flow",
+        "body": "A boundary that the user cannot see is a failure waiting to happen. The migration experience surfaces the stated 150,000-row limit explicitly, so the constraint is something the user plans around rather than something they discover after the work is done."
+      }
+    ],
+    "outcomes": [
+      "The product interface was moved from Ant Design onto a custom design system",
+      "A reusable component layer was established, led by the table and grid foundation",
+      "Cell-level lineage and permission surfaces were designed as consistent patterns",
+      "The migration experience was designed around the stated 150,000-row limit",
+      "No verified adoption or efficiency metrics are available for this project, so none are claimed here"
+    ],
+    "systemsWork": "The pattern I keep coming back to on data products is the difference between a component and a rule. A component is a thing you can see; a rule is a decision that has been made once so it does not have to be made again. The table foundation is a rule set — density, selection, sorting, empty states, and error states all decided once — and every module inherits it whether or not the people building that module realise it. That is the whole argument for a custom system over a general library: not prettier consistency, but a smaller number of places where the product can quietly disagree with itself. The same reasoning shows up in lineage and permissions, where the underlying question is always the same. Who is allowed to see this, and how sure are we about where it came from?",
+    "explainShort": "Xflow is an enterprise data product where people work across big tables, need to trace where any individual value came from, and depend on permissions to keep the wrong people out. The interface had been built on Ant Design, which is a fine general-purpose library, and that was the problem: the same table behaved differently in different modules, so every new feature re-decided the basics. My job was to take the product onto a design system built for its own hardest surfaces. That meant a table foundation where density, selection and state are decided once, and components the general library could not give us — lineage and permissions especially. Lineage I treated as a real object with its own states and navigation, not something you find by hovering. The caveat I want to be straight about: I am not putting efficiency numbers on this one, because I do not have approved evidence for them. The strength of this project is the consistency underneath the product, and that is what I would want measured.",
+    "tags": ["Design Systems", "Data Products", "Enterprise UX", "Migration", "Cell-level Lineage"],
     "isFeatured": true,
     "status": "published"
   },
   {
     "slug": "sitara",
-    "title": "Sitara SaaS",
-    "category": "B2B SaaS",
-    "role": "Senior Product Designer",
+    "title": "Sitara — AI-Powered SMB Suite",
+    "category": "SMB SaaS Suite",
+    "role": "Lead Product Designer",
     "year": "2023",
-    "shortDescription": "Next-generation workflow and collaboration platform designed to streamline operational bottlenecks.",
-    "overview": "A cloud-based workspace helping teams automate repetitive operational tasks and maintain real-time visibility across project lifecycles.",
-    "problem": "Disjointed toolchains forced operators to switch contexts constantly, resulting in lost updates and high onboarding times.",
-    "solution": "Architected a unified modular interface with custom dashboarding and a robust design system.",
-    "impact": "Increased user retention by 25% and reduced task completion times across active enterprise teams.",
-    "tags": ["B2B SaaS", "Design System", "Product Strategy"],
+    "shortDescription": "A suite of business applications for small businesses — CRM, HR, inventory, after-sales, projects and learning — designed from scratch into one coherent product ecosystem.",
+    "overview": "A suite of business applications for small and medium businesses, covering CRM, HR, inventory, after-sales, projects, learning and internal business operations. I led UI/UX design from scratch, working with two junior designers, using Untitled UI as a foundation and extending it with custom components and connected application experiences. The product journey ran approximately eight months.",
+    "problem": "A small business running these functions does not have a CRM problem, an HR problem and an inventory problem. It has one continuity problem. The same person who answers a customer call is checking stock, onboarding someone, and chasing a project, and each of those tasks lives in a different tool with its own conventions, its own login and its own idea of what a record looks like. Every hand-off between tools is a point where context is lost.",
+    "solution": "I designed the product as an ecosystem rather than a set of separate applications. The core of the work was a shared shell: one navigation model, one way of reading a record, and one shared component language, so moving from HR to inventory does not feel like changing products. Untitled UI gave the team a credible starting point that kept us out of the weeds of empty states and form patterns; the custom work was in the components the suite needed but the library did not have, and in designing the cross-module flows that make the suite feel like one product instead of seven.",
+    "impact": "The product journey ran roughly eight months and launched, and positive feedback from small-business users was reported during that period — but I am not restating those reactions as figures or a rating, because the public claim needs to rest on approved evidence rather than recollection. What the work produced is a suite of seven modules that share one design language and one navigation model, designed from scratch and led with two junior designers. If I were to extend this, the next step would be the same as the first: more of the cross-module flows, which is where a suite either becomes a product or stays a bundle.",
+    "contributions": [
+      "Led UI/UX design for the suite from scratch, setting the product direction and structure",
+      "Directed and mentored two junior designers through the build",
+      "Established the shared information architecture and navigation model across all modules",
+      "Took Untitled UI as the component foundation and defined the custom components built on top of it",
+      "Designed the connected, cross-module application experiences",
+      "Prototyped and validated key flows with the team across the roughly eight-month build"
+    ],
+    "decisions": [
+      {
+        "title": "One shell across every module",
+        "body": "The obvious structure is seven applications with a common header. I went further: one navigation model, one record pattern, one place to look for context, so moving between HR and inventory is a route change rather than a product change. The suite is what makes a small business able to work in one place, and the shell is where that is decided."
+      },
+      {
+        "title": "Untitled UI as a starting point, not as the design",
+        "body": "A component library is a head start, and for a team of three building seven modules it is the difference between a coherent product and a set of inconsistent screens. But a library can only be a floor. I used Untitled UI to settle the unglamorous parts — forms, tables, empty states — and put the design effort into the components the suite specifically needed and the flows that cross module boundaries."
+      },
+      {
+        "title": "Design the connections, not only the modules",
+        "body": "Each module can be good on its own and the product can still feel like a bundle. The value of a suite is in the handoffs — a customer record that knows about their order, an inventory item that knows which project consumed it. I treated those connections as first-class design work rather than leaving them to the backend as they emerge."
+      },
+      {
+        "title": "Leading with two junior designers",
+        "body": "I was responsible for the direction, the system and the review, and I deliberately kept the junior designers inside the work rather than delegating whole modules to them. That was the only way the suite stayed coherent while they built — they were making real decisions inside a system, with the reasoning visible to them rather than handed down as a finished screen."
+      }
+    ],
+    "outcomes": [
+      "The suite was designed from scratch across seven business modules",
+      "A shared information architecture and navigation model was established for the whole product",
+      "A custom component layer was built on top of the Untitled UI foundation",
+      "The product journey ran approximately eight months and launched",
+      "Small-business user feedback was reported at launch; no public figures are claimed here without approved evidence"
+    ],
+    "systemsWork": "A suite is a design-system problem wearing a product's clothes. Seven modules means seven opportunities for the same idea to be expressed seven ways, and the only thing preventing that is a shared language that is specific enough to actually constrain the work. That is what the shared shell and the custom component layer are for — not a library of screens, but a set of agreements about how a record is read, how a form behaves, where state lives, and what a navigation change means. The interesting part is the second-order effect: once the agreements exist, adding a module becomes a matter of composition rather than invention, and two junior designers can add real surface area without the product drifting.",
+    "explainShort": "Sitara is a suite of business applications for small companies — CRM, HR, inventory, after-sales, projects, learning and internal operations. The problem I was solving was continuity. A small business does not have seven separate jobs, it has one owner who moves between them all day, and every tool boundary is where context gets lost. So I designed it as one product with one navigation model and one design language, not seven applications that share a header. I used Untitled UI as the foundation so the team of three I was working with was not inventing form patterns from scratch, and put my own effort into the custom components and the flows that cross module boundaries. I led the work and mentored two junior designers inside it. The product launched after roughly eight months. I have left the user-feedback claims open rather than quoting numbers I cannot stand behind.",
+    "tags": ["SMB SaaS", "Product Leadership", "Design Systems", "Multi-module IA", "Mentorship"],
     "isFeatured": true,
     "status": "published"
   },
   {
     "slug": "fingo",
-    "title": "Fingo Fintech",
+    "title": "Fingo India — Loan Mediation Fintech",
     "category": "Fintech",
     "role": "Product Design Lead",
     "year": "2023",
-    "shortDescription": "Modern fintech solution reimagining consumer lending, credit scoring, and transparent digital finance.",
-    "overview": "A digital lending and financial tracking application focused on simplifying credit access with transparent terms.",
-    "problem": "Opaque financial terms and complex onboarding flows led to drop-offs exceeding 60% during user verification.",
-    "solution": "Redesigned the multi-step verification pipeline with progressive disclosure, clear micro-interactions, and visual status trackers.",
-    "impact": "Drop-off rates decreased by 32%, with positive user feedback on onboarding clarity.",
-    "tags": ["Fintech", "Mobile UX", "Financial Inclusion"],
-    "isFeatured": true,
+    "shortDescription": "A loan-mediation fintech experience — making a complex financial journey understandable. Details of users, workflow and my specific decisions still need to be substantiated before this can be a full case study.",
+    "overview": "A loan-mediation fintech product: an experience that helps people move through a financial journey which is, in its raw form, hard to follow. The product direction is a part of my project history, but the specific users, the end-to-end workflow and the individual design decisions behind this one have not yet been verified against approved materials.",
+    "problem": "Financial journeys are hard to make legible. Terms, eligibility, documentation and next steps are spread across documents and providers, and the person going through it usually has to act before they fully understand the shape of the problem. The general shape of that problem is clear; the specifics of how this product addressed it are what still needs confirming.",
+    "solution": "This is where the gap sits. I am not publishing a described solution, because any specific claim about flows, screens or outcomes here would be reconstruction rather than record. The verified direction is the design goal: make the financial journey understandable to the person living it.",
+    "impact": "This project is listed as a supporting project rather than a full case study, because the details are not yet substantiated. I would rather show a short, honest entry than a polished one built on assumptions — the work here is to confirm the actual users, the workflow, my contribution and the specific decisions, and then write it properly.",
+    "contributions": [
+      "Product design direction on a loan-mediation fintech experience",
+      "Design work on making a complex financial journey legible to the person going through it"
+    ],
+    "decisions": [
+      {
+        "title": "Publish the shape of the problem before publishing the solution",
+        "body": "The right way to finish this case study is to go back to the actual work and verify the users, the workflow and my specific decisions against approved material, then write it from the record. Until that happens, a short honest entry is more useful to a reader than a confident one that might not be accurate."
+      }
+    ],
+    "outcomes": [
+      "Included as a supporting project; a full case study is pending verification of users, workflow and contributions"
+    ],
+    "systemsWork": "The design question in any financial product is the same one: how do you make a genuinely complex decision feel navigable without removing the detail that makes it safe? That question is worth a proper case study — and it deserves the actual project record, not a reconstruction.",
+    "explainShort": "This is a shorter entry on purpose. I have worked on a loan-mediation fintech product, and the design goal was to make the financial journey understandable for the person going through it. But I have not yet verified the specific users, the workflow and my individual decisions against approved material, and I would rather say that plainly than write a case study that reads well and might not be true. I am treating it as a supporting project until I can do it properly.",
+    "tags": ["Fintech", "Supporting Project", "In Verification"],
+    "isFeatured": false,
+    "status": "published"
+  },
+  {
+    "slug": "nimbus",
+    "title": "Enterprise Service Onboarding",
+    "client": "Confidential enterprise client",
+    "category": "Enterprise Workflow",
+    "role": "Senior Product Designer",
+    "year": "2025",
+    "shortDescription": "An anonymized enterprise workflow for onboarding a service — clarifying a multi-step journey, its dependencies, the decisions users make, and the feedback the system gives back.",
+    "overview": "An anonymized enterprise engagement covering service onboarding and administrative workflow. The domain, the user journey I owned and the specific feature scope still need to be checked against approved materials, and no client-identifying, internal-system or proprietary detail is published here.",
+    "problem": "Enterprise service onboarding is classically multi-step: a user has to supply information in the right order, wait on people outside their team, and understand what the system is doing while they wait. When those dependencies are not visible, the experience becomes a series of stalls with no explanation. The specific shape of this problem in this engagement is what still needs confirming.",
+    "solution": "The design direction for this class of work is consistent: make the sequence of steps and their dependencies visible, make the user's current decision obvious, and make system feedback specific enough to act on. I am holding the specific implementation detail here until the approved scope is confirmed.",
+    "impact": "This entry is intentionally incomplete. The exact feature scope and my contribution need to be verified against approved materials before it can be written as a case study, and the client is not identified by design.",
+    "contributions": [
+      "Product design on an enterprise service-onboarding workflow",
+      "Design of the multi-step journey, its dependencies and the feedback the system returns"
+    ],
+    "decisions": [
+      {
+        "title": "Name the client, or do not publish the work",
+        "body": "Enterprise work carries obligations that outlive the project. Where identifying the client, the internal systems or the exact screens would breach those obligations, the useful move is to publish the design thinking in anonymised form rather than to publish a specific detail that should not be public. That is why this entry is generic by choice and marked as unverified."
+      }
+    ],
+    "outcomes": [
+      "A full case study is pending verification of the approved feature scope and my contribution"
+    ],
+    "systemsWork": "The reusable content of enterprise workflow design is rarely the individual screen. It is the recurring set of decisions — what a step requires, what the system is doing, what a user can influence, and what happens when they are waiting on someone else. Getting those consistent across onboarding, administration and platform work is the same discipline as building a design system, applied to process rather than to pixels.",
+    "explainShort": "This is an anonymised enterprise engagement on service onboarding — a multi-step journey where a user has to provide information in a particular order, wait on other people, and understand what the system is doing in the meantime. The design goal was to make the steps, the dependencies and the feedback visible so the journey does not feel like a series of unexplained stalls. I am keeping the client, the internal systems and the specific screens out of this entry by choice. The exact scope and my specific contribution are still being checked against approved material, so I would rather present the thinking honestly than publish detail I should not.",
+    "tags": ["Enterprise Workflow", "Confidential", "In Verification"],
+    "isFeatured": false,
+    "status": "published"
+  },
+  {
+    "slug": "project-sg",
+    "title": "Project SG",
+    "category": "To Be Confirmed",
+    "role": "Product Designer",
+    "year": "2024",
+    "shortDescription": "A project in the portfolio inventory whose scope, name and contributions are not yet confirmed. Listed here so the record is complete, and written up once the source material is recovered.",
+    "overview": "A project referenced in the portfolio source material as 'SG', currently without a confirmed name, scope or set of contributions. It is kept in the inventory so that the record of what was worked on stays complete while the material behind it is recovered.",
+    "problem": "There is no verified problem statement to publish yet. The project exists in the inventory; the evidence behind it does not yet exist in a form that can be written up.",
+    "solution": "Nothing is asserted here by design. The correct next step is to recover the project material — the Figma files, documents or summaries that describe what was built and why — and then write the case study from that record.",
+    "impact": "No outcome is claimed. The entry exists so that the inventory is honest about what is known and what is not.",
+    "contributions": [
+      "Project design work — scope and specific contributions pending recovery of the source material"
+    ],
+    "decisions": [
+      {
+        "title": "An empty slot is better than a filled-in guess",
+        "body": "A portfolio is a claim about what was done. Where the material is missing, the honest options are to write nothing or to write clearly what is missing. The second keeps the inventory complete without making a claim I cannot support, and it makes the gap visible to whoever picks the work up next."
+      }
+    ],
+    "outcomes": [
+      "Awaiting recovery of project material before a case study is written"
+    ],
+    "systemsWork": "The same principle applies across the whole portfolio: the value of a case study is that the reasoning is inspectable, and a reconstruction is not reasoning. Where evidence is missing, the design decision is to publish the gap rather than the gap-filler.",
+    "explainShort": "This is a placeholder in the portfolio for a project I have not yet been able to write up properly. I know the work exists, but I do not yet have the material that would let me describe the problem, my decisions or the outcome without reconstructing it. I have left it visible rather than quietly dropped it, because the inventory should reflect what was worked on — and I would rather mark the gap than fill it with something that reads well but might not be true.",
+    "tags": ["In Verification", "Inventory"],
+    "isFeatured": false,
     "status": "published"
   },
   {
@@ -94,13 +289,28 @@
     "category": "Mobile App",
     "role": "Lead UX/UI Designer",
     "year": "2022",
-    "shortDescription": "Empowering users with real-time credit score insights, analytics, and actionable financial wellness steps.",
-    "overview": "Mobile financial management and credit-health application providing real-time credit score tracking and personalized improvement recommendations.",
-    "problem": "Users struggled to understand the factors affecting their credit scores due to convoluted financial jargon.",
-    "solution": "Created an intuitive visual health meter and step-by-step credit repair roadmap with gamified milestones.",
-    "impact": "Achieved a 4.7-star App Store rating and doubled weekly active user engagement.",
-    "tags": ["Mobile App", "Fintech", "Gamification"],
-    "isFeatured": true,
+    "shortDescription": "A mobile credit-health app that turns an opaque score into something a person can see, understand and act on. Possible overlap with the Fingo entry — being confirmed.",
+    "overview": "A mobile financial-wellness app built around credit health: showing where a credit score comes from and what a person can actually do about it. The product and design direction are part of my project history. There is a real possibility that this is the same product as the Fingo entry above rather than a separate case, and I am resolving that before writing it up in full.",
+    "problem": "A credit score is a number with no visible reasoning behind it. People are told it matters and then shown a figure they cannot interpret, cannot tell apart from a grade, and cannot connect to a specific action. The problem is not that the number is wrong — it is that the number is disconnected from anything a person can do.",
+    "solution": "The design direction was to make the score legible: a visual representation of the health of the score rather than a bare figure, and a step-by-step path showing which actions lead to which improvement, with milestones that mark progress along the way. The specific screens, the validation work and the results still need confirming against the project record.",
+    "impact": "This project is listed as a supporting project rather than a full case study. Any rating or engagement figure would need approved evidence, and the relationship between this entry and the Fingo entry is being confirmed — publishing them as two separate achievements when they are one would overstate the work.",
+    "contributions": [
+      "Lead UX/UI design for the credit-health mobile application",
+      "Design of the visual credit-health representation and the step-by-step improvement path"
+    ],
+    "decisions": [
+      {
+        "title": "Resolve the overlap before writing the case study",
+        "body": "A credit-health app and a loan-mediation fintech product may well be the same project, and the difference matters — it changes how many pieces of work this portfolio claims. Merging the two into one honest case study is a better outcome than two overlapping ones, so that is what I am doing before writing either up properly."
+      }
+    ],
+    "outcomes": [
+      "Listed as a supporting project; overlap with the Fingo entry is being confirmed before a full case study is written"
+    ],
+    "systemsWork": "The most transferable idea in a financial-wellness product is that every number in the interface should be connected to an action. That principle is a design-system rule as much as a layout decision: the score, the factors and the steps are one connected model, so a change in one is reflected everywhere it appears.",
+    "explainShort": "This is a mobile credit-health app, and the design idea behind it is that a credit score should not be a bare number. I worked on making the score something a person can read at a glance and connect to specific things they can do about it, including a step-by-step path with milestones. It is listed as a supporting project for now for two reasons: I am confirming whether this is the same product as the Fingo entry, and any rating or engagement figure would need approved evidence. Once that is settled I will write it up as a full case study.",
+    "tags": ["Mobile App", "Fintech", "Supporting Project", "In Verification"],
+    "isFeatured": false,
     "status": "published"
   }
 ]

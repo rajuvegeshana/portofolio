@@ -9,6 +9,8 @@ export default function Home() {
   const { theme } = useTheme();
   const { hero } = aboutData;
   const publishedProjects = projectsData.filter(p => p.status === 'published');
+  const featuredProjects = publishedProjects.filter(p => p.isFeatured);
+  const supportingProjects = publishedProjects.filter(p => !p.isFeatured);
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
@@ -32,7 +34,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col sm:border-l sm:border-theme-border sm:pl-6">
                 <span className="font-serif text-3xl font-normal text-theme-text">{hero.studentsMentored}</span>
-                <span className="text-theme-muted text-xs uppercase tracking-wider mt-1">Designers Mentored</span>
+                <span className="text-theme-muted text-xs uppercase tracking-wider mt-1">Students Mentored</span>
               </div>
               <div className="flex flex-col sm:border-l sm:border-theme-border sm:pl-6">
                 <span className="font-serif text-3xl font-normal text-theme-text">Accenture</span>
@@ -111,12 +113,12 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-theme-text tracking-tight">Selected Case Studies</h2>
           </div>
           <p className="text-sm text-theme-muted max-w-md">
-            Rigorous end-to-end product design case studies highlighting complex problem solving, systems thinking, and measurable business impact.
+            End-to-end product design case studies covering complex problem solving, systems thinking, and the decisions behind each screen.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
-          {publishedProjects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <Link
               key={project.slug}
               to={`/project/${project.slug}`}
@@ -167,6 +169,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Supporting Work */}
+      {supportingProjects.length > 0 && (
+        <section className="mt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b border-theme-border pb-5 gap-3">
+            <div>
+              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-theme-muted font-semibold mb-2">
+                <Layers className="w-4 h-4" /> Supporting Work
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-theme-text tracking-tight">Also in the portfolio</h2>
+            </div>
+            <p className="text-sm text-theme-muted max-w-md">
+              Projects I have worked on that are not yet written up as full case studies. Where a detail still needs
+              verifying, I say so on the page rather than filling the gap.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {supportingProjects.map((project) => (
+              <Link
+                key={project.slug}
+                to={`/project/${project.slug}`}
+                className="group flex flex-col rounded-xl border border-theme-border bg-theme-card p-6 hover:border-theme-accent transition-colors"
+              >
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-theme-text group-hover:text-theme-accent transition-colors">
+                      {project.title}
+                    </h3>
+                    <span className="text-xs font-mono text-theme-muted">
+                      {project.category} · {project.year}
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-5 h-5 text-theme-muted group-hover:text-theme-accent transition-colors shrink-0" />
+                </div>
+                <p className="text-sm text-theme-muted leading-relaxed">{project.shortDescription}</p>
+                <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-theme-border">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="text-xs font-mono px-2 py-0.5 rounded bg-theme-bg border border-theme-border text-theme-muted">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Experience & Credibility Section */}
       <section className="mt-28 pt-16 border-t border-theme-border">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -185,7 +235,7 @@ export default function Home() {
           <div className="p-8 rounded-xl bg-theme-card border border-theme-border">
             <h3 className="text-lg font-bold text-theme-text mb-2">Mentorship</h3>
             <p className="text-sm text-theme-muted leading-relaxed">
-              Mentored over 100+ designers across UI/UX fundamentals, design systems architecture, and rapid prototyping workflows.
+              Mentored 20+ students and junior designers across UI/UX fundamentals, design systems architecture, and rapid prototyping workflows.
             </p>
           </div>
         </div>
