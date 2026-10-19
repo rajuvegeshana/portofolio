@@ -35,6 +35,15 @@ function App() {
   );
 }
 
+// GitHub Pages has no SPA fallback: it serves public/404.html for unknown paths.
+// That page stores the requested path here and redirects to the app root, so the
+// route has to be restored before BrowserRouter reads location.
+const spaPath = sessionStorage.getItem('spa-path');
+if (spaPath) {
+  sessionStorage.removeItem('spa-path');
+  history.replaceState(null, '', spaPath);
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
