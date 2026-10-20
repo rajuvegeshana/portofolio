@@ -45,7 +45,13 @@
     ],
     "systemsWork": "Provisioning has more structural decisions than it first appears: what state a request is in, who is allowed to approve it, what must be true before it can proceed, and how failure is communicated. In a product assembled from disconnected workflows, each of those gets re-decided per screen and per service, and the answers drift apart. The schema-driven form system is the clearest example of the alternative — service-specific variation expressed as data, while the rules that apply to every service live in one place. The same logic runs through the status and severity vocabulary: a shared language for shared states, so that adding the tenth service does not mean inventing the tenth status screen. The work I did here was less about individual screens and more about finding which decisions should be made once, systemically, and which genuinely belong to the specific service.",
     "explainShort": "Zenith is an internal platform where developers request and configure infrastructure. When I joined, that work was scattered — tickets for one thing, forms for another, approvals by email, and no clear way to see where a request had got to. My job was to turn it into a single guided journey: apply, choose an environment, configure the services, get it approved, watch it provision. Two ideas carry most of the work. First, services describe their own configuration fields, so a single form covers every service and adding a new one stops being a design project. Second, an approval only applies to the exact draft it was granted for — change anything afterwards and it has to be approved again, so nobody signs off a version they did not see. The honest caveat: this reached design and planning but has not launched, so I cannot show you adoption or time saved. What I can show is the design and the reasoning, and what I would want tested next.",
-    "tags": ["Enterprise Platform", "Workflow Design", "Schema-driven UI", "Prototyping", "Design Systems"],
+    "tags": [
+      "Enterprise Platform",
+      "Workflow Design",
+      "Schema-driven UI",
+      "Prototyping",
+      "Design Systems"
+    ],
     "isFeatured": true,
     "status": "published"
   },
@@ -89,7 +95,13 @@
     ],
     "systemsWork": "As the console grew across more operational capabilities, designers were repeatedly rebuilding the same structural decisions: how an operation behaves, which screens are required, what belongs in an audit trail. I helped build a reusable design-system process that encodes those decisions once and enforces them on new work, including a strict convention to flag missing information rather than fabricate it — so an AI-assisted system cannot quietly invent a requirement that looks authoritative downstream.",
     "explainShort": "I work on an internal operations console that platform engineers use to manage and troubleshoot the infrastructure behind payment services. My work sits at two levels. At the feature level, I brought a network-policy check into the console after a real incident showed the external system could report success without applying the change, so I designed around that false-confidence risk. At the systems level, I helped build a reusable design process that encodes the console's rules and evidence requirements so new features stay consistent as the product grows.",
-    "tags": ["Fintech", "Internal Tools", "Design Systems", "Infrastructure", "Enterprise UX"],
+    "tags": [
+      "Fintech",
+      "Internal Tools",
+      "Design Systems",
+      "Infrastructure",
+      "Enterprise UX"
+    ],
     "isFeatured": true,
     "status": "published"
   },
@@ -139,7 +151,13 @@
     ],
     "systemsWork": "The pattern I keep coming back to on data products is the difference between a component and a rule. A component is a thing you can see; a rule is a decision that has been made once so it does not have to be made again. The table foundation is a rule set — density, selection, sorting, empty states, and error states all decided once — and every module inherits it whether or not the people building that module realise it. That is the whole argument for a custom system over a general library: not prettier consistency, but a smaller number of places where the product can quietly disagree with itself. The same reasoning shows up in lineage and permissions, where the underlying question is always the same. Who is allowed to see this, and how sure are we about where it came from?",
     "explainShort": "Xflow is an enterprise data product where people work across big tables, need to trace where any individual value came from, and depend on permissions to keep the wrong people out. The interface had been built on Ant Design, which is a fine general-purpose library, and that was the problem: the same table behaved differently in different modules, so every new feature re-decided the basics. My job was to take the product onto a design system built for its own hardest surfaces. That meant a table foundation where density, selection and state are decided once, and components the general library could not give us — lineage and permissions especially. Lineage I treated as a real object with its own states and navigation, not something you find by hovering. The caveat I want to be straight about: I am not putting efficiency numbers on this one, because I do not have approved evidence for them. The strength of this project is the consistency underneath the product, and that is what I would want measured.",
-    "tags": ["Design Systems", "Data Products", "Enterprise UX", "Migration", "Cell-level Lineage"],
+    "tags": [
+      "Design Systems",
+      "Data Products",
+      "Enterprise UX",
+      "Migration",
+      "Cell-level Lineage"
+    ],
     "isFeatured": true,
     "status": "published"
   },
@@ -189,7 +207,13 @@
     ],
     "systemsWork": "A suite is a design-system problem wearing a product's clothes. Seven modules means seven opportunities for the same idea to be expressed seven ways, and the only thing preventing that is a shared language that is specific enough to actually constrain the work. That is what the shared shell and the custom component layer are for — not a library of screens, but a set of agreements about how a record is read, how a form behaves, where state lives, and what a navigation change means. The interesting part is the second-order effect: once the agreements exist, adding a module becomes a matter of composition rather than invention, and two junior designers can add real surface area without the product drifting.",
     "explainShort": "Sitara is a suite of business applications for small companies — CRM, HR, inventory, after-sales, projects, learning and internal operations. The problem I was solving was continuity. A small business does not have seven separate jobs, it has one owner who moves between them all day, and every tool boundary is where context gets lost. So I designed it as one product with one navigation model and one design language, not seven applications that share a header. I used Untitled UI as the foundation so the team of three I was working with was not inventing form patterns from scratch, and put my own effort into the custom components and the flows that cross module boundaries. I led the work and mentored two junior designers inside it. The product launched after roughly eight months. I have left the user-feedback claims open rather than quoting numbers I cannot stand behind.",
-    "tags": ["SMB SaaS", "Product Leadership", "Design Systems", "Multi-module IA", "Mentorship"],
+    "tags": [
+      "SMB SaaS",
+      "Product Leadership",
+      "Design Systems",
+      "Multi-module IA",
+      "Mentorship"
+    ],
     "isFeatured": true,
     "status": "published"
   },
@@ -219,38 +243,69 @@
     ],
     "systemsWork": "The design question in any financial product is the same one: how do you make a genuinely complex decision feel navigable without removing the detail that makes it safe? That question is worth a proper case study — and it deserves the actual project record, not a reconstruction.",
     "explainShort": "This is a shorter entry on purpose. I have worked on a loan-mediation fintech product, and the design goal was to make the financial journey understandable for the person going through it. But I have not yet verified the specific users, the workflow and my individual decisions against approved material, and I would rather say that plainly than write a case study that reads well and might not be true. I am treating it as a supporting project until I can do it properly.",
-    "tags": ["Fintech", "Supporting Project", "In Verification"],
+    "tags": [
+      "Fintech",
+      "Supporting Project",
+      "In Verification"
+    ],
     "isFeatured": false,
     "status": "published"
   },
   {
     "slug": "nimbus",
-    "title": "Enterprise Service Onboarding",
-    "client": "Confidential enterprise client",
-    "category": "Enterprise Workflow",
+    "title": "Visa Nimbus — Visa Application & Case Management Platform",
+    "client": "Confidential — visa and immigration services operator",
+    "category": "Visa & Immigration Workflow",
     "role": "Senior Product Designer",
-    "year": "2025",
-    "shortDescription": "An anonymized enterprise workflow for onboarding a service — clarifying a multi-step journey, its dependencies, the decisions users make, and the feedback the system gives back.",
-    "overview": "An anonymized enterprise engagement covering service onboarding and administrative workflow. The domain, the user journey I owned and the specific feature scope still need to be checked against approved materials, and no client-identifying, internal-system or proprietary detail is published here.",
-    "problem": "Enterprise service onboarding is classically multi-step: a user has to supply information in the right order, wait on people outside their team, and understand what the system is doing while they wait. When those dependencies are not visible, the experience becomes a series of stalls with no explanation. The specific shape of this problem in this engagement is what still needs confirming.",
-    "solution": "The design direction for this class of work is consistent: make the sequence of steps and their dependencies visible, make the user's current decision obvious, and make system feedback specific enough to act on. I am holding the specific implementation detail here until the approved scope is confirmed.",
-    "impact": "This entry is intentionally incomplete. The exact feature scope and my contribution need to be verified against approved materials before it can be written as a case study, and the client is not identified by design.",
+    "year": "2026",
+    "shortDescription": "A visa and immigration platform where the hard design problem is not showing a green check, but making it provable which document is missing, who owns the next step, and what the system has actually verified.",
+    "overview": "Visa Nimbus is a visa and immigration workflow platform. Applicants use it to work out which visa pathway applies to them, prepare the required evidence, and follow their case; consultants and operations teams use it to handle cases at volume. The product sits between an applicant and a process that is genuinely hard to model: requirements differ by destination and visa category, evidence is incomplete for long stretches, and the platform is never the authority that decides the outcome. I worked on the product and interaction design for the applicant case journey, the document and task model, and the status and verification language, while the project consolidated its prior decisions into a single brief.",
+    "problem": "Most of a visa journey is waiting — for a document, an appointment, a payment, a decision. Every stage of the product is therefore a state of partial knowledge, and the interface has to be honest about which one it is in. The failure mode is specific and severe: a product that renders 'submitted' and 'verified' the same way, or that shows a checklist as complete when the application was never filed, manufactures a confidence the underlying process cannot support. For an applicant that means a missed appointment or a rejected file; for a consultant it means a case handed on in the wrong state; for the platform itself it means legal exposure, because a visa-adjacent product that appears authoritative is making guidance it is not qualified to make.",
+    "solution": "I designed around evidence rather than completion. The case model separates what has been requested from what has been confirmed, separates a document uploaded from a document reviewed and accepted, and separates a checklist that is complete from an application that has been officially submitted — each with a distinct label rather than a shared green state. Every status carries a responsible party and a timestamp, so the interface can answer 'what happens next and who has to move' rather than only 'how far along are you'. Requirements are content, not chrome: each one carries the official source it came from and the date it was last verified, so an outdated rule is visible rather than silently wrong. Where the platform uses AI, it extracts and suggests, it never asserts — extracted fields are proposals the applicant confirms, and anything ambiguous escalates to a person. I also worked on the wording of the moments where the product is least able to help: what is still missing, what a fee actually covers, and how long a processing estimate is, in language that does not promise an outcome the process cannot deliver.",
+    "impact": "Visa Nimbus was at the stage of consolidating its prior decisions when I worked on it, so I am not going to publish adoption numbers or approval rates for work that has not shipped. What exists is a design position the project can now build against: a case model where the states mean what they say, a checklist whose rules can be traced and dated, and a set of rules for AI and copy that keep the product from implying certainty it cannot support. I would rather hand over an honest description of the design than a case study with a launch date attached to a blueprint.",
     "contributions": [
-      "Product design on an enterprise service-onboarding workflow",
-      "Design of the multi-step journey, its dependencies and the feedback the system returns"
+      "Product and interaction design for the applicant case journey: pathway discovery, checklist, document upload and review, task ownership, and case status history",
+      "Design of the verification-state model that distinguishes requested from confirmed, uploaded from accepted, and checklist-complete from officially submitted",
+      "Design of the requirement-provenance pattern, so every rule in a checklist carries its official source and last-verified date",
+      "Copy and content design for deadlines, fee breakdowns and processing-time uncertainty, so the interface states its limits without overclaiming",
+      "Design review of the AI assistance layer: confidence thresholds, applicant confirmation of extracted fields, and mandatory human review on ambiguous cases",
+      "Consolidation of prior project decisions into a single master brief that separated what was confirmed from what was merely proposed"
     ],
     "decisions": [
       {
-        "title": "Name the client, or do not publish the work",
-        "body": "Enterprise work carries obligations that outlive the project. Where identifying the client, the internal systems or the exact screens would breach those obligations, the useful move is to publish the design thinking in anonymised form rather than to publish a specific detail that should not be public. That is why this entry is generic by choice and marked as unverified."
+        "title": "A complete checklist is not a submitted application",
+        "body": "The two states look identical to a progress bar, so I gave them different names, different icons and different evidence requirements. Submission is only recorded when there is a verifiable confirmation behind it, or an explicitly qualified status that says who reported it and on what basis."
+      },
+      {
+        "title": "Every requirement carries its source and its last-verified date",
+        "body": "Visa rules change, and the product is judged on whether its guidance was right. Treating requirements as versioned content with provenance, rather than as text built into a screen, is what makes it possible to show a user how fresh a rule is and to flag the ones that have gone stale."
+      },
+      {
+        "title": "State what the system can verify",
+        "body": "Where the platform cannot confirm an outcome, it says so in the interface instead of degrading into a generic success state. A green result always means the underlying fact was confirmed, not that a request left the building."
+      },
+      {
+        "title": "AI extracts, the applicant confirms",
+        "body": "Extraction is presented as a proposal, never as evidence of authenticity, and every field it touches routes back to a person before it enters the case. Anything the model is unsure about escalates rather than being guessed, because a confident wrong value in a visa file is expensive to discover later."
       }
     ],
     "outcomes": [
-      "A full case study is pending verification of the approved feature scope and my contribution"
+      "A consolidated master brief separating confirmed, superseded, proposed and unresolved decisions",
+      "A defined case lifecycle and status vocabulary that distinguishes preparation, submission, external decision and closure",
+      "A document and task model that makes the outstanding item, its owner and the next action explicit at every stage",
+      "Requirement provenance designed into the checklist, so no rule can appear without a source and a verification date",
+      "A defined AI guardrail set, agreed before any AI feature was built"
     ],
-    "systemsWork": "The reusable content of enterprise workflow design is rarely the individual screen. It is the recurring set of decisions — what a step requires, what the system is doing, what a user can influence, and what happens when they are waiting on someone else. Getting those consistent across onboarding, administration and platform work is the same discipline as building a design system, applied to process rather than to pixels.",
-    "explainShort": "This is an anonymised enterprise engagement on service onboarding — a multi-step journey where a user has to provide information in a particular order, wait on other people, and understand what the system is doing in the meantime. The design goal was to make the steps, the dependencies and the feedback visible so the journey does not feel like a series of unexplained stalls. I am keeping the client, the internal systems and the specific screens out of this entry by choice. The exact scope and my specific contribution are still being checked against approved material, so I would rather present the thinking honestly than publish detail I should not.",
-    "tags": ["Enterprise Workflow", "Confidential", "In Verification"],
+    "systemsWork": "The reusable output of a platform like this is not a screen. It is the set of decisions that have to remain true across every module: what counts as evidence, who owns the next step, how uncertainty is written, and where a human must review before the system asserts something. Encoding those once as content rules and status semantics, rather than as screen-specific design, is what lets the platform add a new destination or a new visa category without re-litigating the interface. It is the same discipline as building a reusable design process for an internal operations console, applied to process and language instead of to components. The system's real test is whether a second module can be added by someone who was not in the original design decisions.",
+    "explainShort": "Visa Nimbus is a visa and immigration platform — applicants use it to work out what they need and prepare it, consultants and operations teams use it to handle cases at volume. The design problem is that most of the journey is a wait, so the product is mostly about states of partial knowledge: document uploaded but not reviewed, checklist done but the application not filed, request sent but the change not confirmed. Most of my work was making those states distinct and unambiguous on screen, so a person always knows what is actually done, what is outstanding, and who has to act next. I also designed how requirements are displayed, so every rule shows where it came from and when it was last checked, and I set the rules for using AI in the product: it may suggest, a person confirms, and nothing in the interface implies an outcome the process cannot guarantee. I have kept the client and the internal systems off this page, and I have not attached outcomes to a project that is still consolidating its decisions.",
+    "tags": [
+      "Visa & Immigration",
+      "Case Management",
+      "Document Workflow",
+      "Content Design",
+      "AI Guardrails",
+      "Confidential"
+    ],
     "isFeatured": false,
     "status": "published"
   },
@@ -279,7 +334,10 @@
     ],
     "systemsWork": "The same principle applies across the whole portfolio: the value of a case study is that the reasoning is inspectable, and a reconstruction is not reasoning. Where evidence is missing, the design decision is to publish the gap rather than the gap-filler.",
     "explainShort": "This is a placeholder in the portfolio for a project I have not yet been able to write up properly. I know the work exists, but I do not yet have the material that would let me describe the problem, my decisions or the outcome without reconstructing it. I have left it visible rather than quietly dropped it, because the inventory should reflect what was worked on — and I would rather mark the gap than fill it with something that reads well but might not be true.",
-    "tags": ["In Verification", "Inventory"],
+    "tags": [
+      "In Verification",
+      "Inventory"
+    ],
     "isFeatured": false,
     "status": "published"
   },
@@ -309,7 +367,12 @@
     ],
     "systemsWork": "The most transferable idea in a financial-wellness product is that every number in the interface should be connected to an action. That principle is a design-system rule as much as a layout decision: the score, the factors and the steps are one connected model, so a change in one is reflected everywhere it appears.",
     "explainShort": "This is a mobile credit-health app, and the design idea behind it is that a credit score should not be a bare number. I worked on making the score something a person can read at a glance and connect to specific things they can do about it, including a step-by-step path with milestones. It is listed as a supporting project for now for two reasons: I am confirming whether this is the same product as the Fingo entry, and any rating or engagement figure would need approved evidence. Once that is settled I will write it up as a full case study.",
-    "tags": ["Mobile App", "Fintech", "Supporting Project", "In Verification"],
+    "tags": [
+      "Mobile App",
+      "Fintech",
+      "Supporting Project",
+      "In Verification"
+    ],
     "isFeatured": false,
     "status": "published"
   }
