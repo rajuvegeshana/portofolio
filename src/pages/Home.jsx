@@ -1,14 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import projectsData from '../../content/projects.json';
 import aboutData from '../../content/about.json';
-import { ArrowUpRight, Sparkles, Layers, Cpu } from 'lucide-react';
+import { getAbout, getProjects } from '../lib/api';
+import { ArrowUpRight, Sparkles, Layers, Cpu, Lock } from 'lucide-react';
 import { useTheme } from '../components/ThemeContext';
+import ProjectArtwork from '../components/ProjectArtwork';
+
+function ProjectCover({ project }) {
+  if (project.coverImage && !project.locked) {
+    const src = project.coverImage.startsWith('images/')
+      ? `${import.meta.env.BASE_URL}${project.coverImage}`
+      : project.coverImage;
+    return <img src={src} alt={project.coverAlt || `${project.title} design`} className="w-full h-full object-cover object-top" loading="lazy" />;
+  }
+  return <ProjectArtwork slug={project.slug} locked={project.locked} decorative />;
+}
 
 export default function Home() {
   const { theme } = useTheme();
-  const { hero } = aboutData;
-  const publishedProjects = projectsData.filter(p => p.status === 'published');
+  const [aboutContent, setAboutContent] = useState(aboutData);
+  const { hero } = aboutContent;
+  const [projects, setProjects] = useState(projectsData);
+
+  useEffect(() => {
+    let cancelled = false;
+    getProjects()
+      .then((data) => {
+        if (!cancelled && Array.isArray(data) && data.length) setProjects(data);
+      })
+      .catch(() => {});
+    getAbout().then((data) => { if (!cancelled && data?.hero) setAboutContent(data); }).catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const publishedProjects = projects.filter(p => p.status === 'published');
   const featuredProjects = publishedProjects.filter(p => p.isFeatured);
   const supportingProjects = publishedProjects.filter(p => !p.isFeatured);
 
@@ -124,27 +152,26 @@ export default function Home() {
               to={`/project/${project.slug}`}
               className="group flex flex-col rounded-2xl overflow-hidden border border-theme-border bg-theme-card hover:border-theme-accent transition-all duration-300 shadow-sm hover:shadow-xl"
             >
-              <div className="h-72 bg-gradient-to-br from-theme-border/20 to-theme-border/60 relative flex items-center justify-center p-8 overflow-hidden">
-                <div className="absolute inset-0 bg-theme-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="text-center relative z-10 transform group-hover:-translate-y-1 transition-transform duration-300">
-                  <span className="text-xs font-mono text-theme-accent uppercase tracking-widest block mb-3 font-semibold px-3 py-1 rounded-full bg-theme-card/80 border border-theme-border inline-block">
-                    {project.category}
-                  </span>
-                  <h3 className="text-3xl font-bold text-theme-text group-hover:text-theme-accent transition-colors">
-                    {project.title}
-                  </h3>
-                </div>
+              <div className="h-64 sm:h-72 relative overflow-hidden border-b border-theme-border">
+                <ProjectCover project={project} />
                 <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-theme-card border border-theme-border flex items-center justify-center text-theme-muted group-hover:text-theme-text group-hover:border-theme-accent transition-all shadow-sm">
                   <ArrowUpRight className="w-5 h-5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
-                <div className="absolute bottom-4 left-6 text-xs font-mono text-theme-muted">
-                  CASE STUDY #{index + 1}
+                <div className="absolute bottom-4 left-6 text-[10px] font-mono uppercase tracking-wider bg-theme-card/95 px-2.5 py-1 rounded border border-theme-border text-theme-muted">
+                  {project.coverImage && !project.locked ? 'Figma design' : 'Illustrative visual'} · {String(index + 1).padStart(2, '0')}
                 </div>
               </div>
 
               <div className="p-8 flex flex-col flex-grow justify-between">
                 <div>
+                  <p className="text-xs font-mono uppercase tracking-widest text-theme-accent mb-2">{project.category}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-theme-text group-hover:text-theme-accent transition-colors mb-5">{project.title}</h3>
                   <div className="flex items-center gap-3 mb-4 text-xs font-medium">
+                    {project.locked && (
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md border border-theme-border text-theme-muted font-mono">
+                        <Lock className="w-3 h-3" /> Locked
+                      </span>
+                    )}
                     <span className="px-2.5 py-1 rounded-md bg-theme-border/40 text-theme-text">
                       {project.role}
                     </span>
@@ -157,7 +184,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-4 border-t border-theme-border">
-                  {project.tags.map((tag) => (
+                  {(project.tags || []).map((tag) => (
                     <span key={tag} className="text-xs font-mono px-2.5 py-1 rounded bg-theme-bg border border-theme-border text-theme-muted">
                       {tag}
                     </span>
@@ -190,8 +217,13 @@ export default function Home() {
               <Link
                 key={project.slug}
                 to={`/project/${project.slug}`}
-                className="group flex flex-col rounded-xl border border-theme-border bg-theme-card p-6 hover:border-theme-accent transition-colors"
+                className="group flex flex-col rounded-xl border border-theme-border bg-theme-card overflow-hidden hover:border-theme-accent transition-colors"
               >
+                <div className="h-36 sm:h-40 border-b border-theme-border relative overflow-hidden">
+                  <ProjectCover project={project} />
+                  <span className="absolute bottom-3 left-4 text-[10px] font-mono uppercase tracking-wider bg-theme-card/95 px-2 py-1 rounded border border-theme-border text-theme-muted">{project.coverImage && !project.locked ? 'Figma design' : 'Illustrative visual'}</span>
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
                     <h3 className="text-lg font-bold text-theme-text group-hover:text-theme-accent transition-colors">
@@ -201,15 +233,23 @@ export default function Home() {
                       {project.category} · {project.year}
                     </span>
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-theme-muted group-hover:text-theme-accent transition-colors shrink-0" />
+                  <div className="flex items-center gap-3 shrink-0">
+                    {project.locked && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded border border-theme-border text-theme-muted font-mono text-xs">
+                        <Lock className="w-3 h-3" /> Locked
+                      </span>
+                    )}
+                    <ArrowUpRight className="w-5 h-5 text-theme-muted group-hover:text-theme-accent transition-colors shrink-0" />
+                  </div>
                 </div>
                 <p className="text-sm text-theme-muted leading-relaxed">{project.shortDescription}</p>
                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-theme-border">
-                  {project.tags.map((tag) => (
+                  {(project.tags || []).map((tag) => (
                     <span key={tag} className="text-xs font-mono px-2 py-0.5 rounded bg-theme-bg border border-theme-border text-theme-muted">
                       {tag}
                     </span>
                   ))}
+                </div>
                 </div>
               </Link>
             ))}
@@ -235,7 +275,7 @@ export default function Home() {
           <div className="p-8 rounded-xl bg-theme-card border border-theme-border">
             <h3 className="text-lg font-bold text-theme-text mb-2">Mentorship</h3>
             <p className="text-sm text-theme-muted leading-relaxed">
-              Mentored 20+ students and junior designers across UI/UX fundamentals, design systems architecture, and rapid prototyping workflows.
+              Mentored {hero.studentsMentored} students and junior designers across UI/UX fundamentals, design systems architecture, and rapid prototyping workflows.
             </p>
           </div>
         </div>

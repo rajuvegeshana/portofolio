@@ -19,4 +19,6 @@ A static, high-performance product design portfolio with a built-in local admin 
 - `npm run dev` (Site)
 - `npm run admin` (Admin Panel)
 
+The content server runs locally by default. GitHub Pages serves the public build from the `gh-pages` branch; protected case studies and remote admin editing require a hosted server. See `docs/deployment.md` for release steps. Earlier public commits may still contain protected text; a new build does not remove that history.
+
 🤖 Generated with [Claude Code](https://claude.com/claude-code)

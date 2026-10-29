@@ -15,9 +15,7 @@
       "Application onboarding flow and the environment / service canvas structure",
       "Schema-driven configuration form system used across services",
       "Review and approval flow, including the rule that binds an approval to a specific draft",
-      "Provisioning status and severity messaging across the full state model",
-      "AI-assisted prototyping using Figma Make and Claude Code Skills to iterate on the flow quickly with stakeholders",
-      "Design reviews with backend and platform stakeholders, translating system constraints into interface behaviour"
+      "Provisioning status and severity messaging across the full state model"
     ],
     "decisions": [
       {
@@ -39,7 +37,6 @@
     ],
     "outcomes": [
       "The end-to-end provisioning journey was designed and prototyped end to end",
-      "The schema-driven configuration model and the approval-bound-to-draft rule were reviewed with platform and backend stakeholders",
       "Status and severity messaging was standardised across the provisioning state model",
       "The work remains in design and planning — it has not launched, and no outcome metrics are confirmed"
     ],
@@ -53,53 +50,277 @@
       "Design Systems"
     ],
     "isFeatured": true,
-    "status": "published"
+    "status": "published",
+    "visualsTitle": "The idea, illustrated",
+    "visuals": [
+      {
+        "id": "project-zenith",
+        "title": "Guided platform journey",
+        "label": "Illustration",
+        "caption": "Illustrative map of the request-to-status journey described in this case study. It is not a screenshot of the internal platform."
+      }
+    ],
+    "roleScope": "I owned the hands-on product design across the platform, from application onboarding through service configuration, review, approval and provisioning status, under the guidance of the Lead Product Designer.",
+    "designApproach": "Mapped one end-to-end infrastructure request journey, then designed schema-driven service forms, exception-based review, approval tied to a specific draft, and a shared language for provisioning status.",
+    "projectTimeline": "6 months",
+    "designSystem": "Visa Nova design system with a custom dark theme built from scratch for Zenith.",
+    "teamSize": "2 designers",
+    "teamComposition": "Design team: a Lead Product Designer and me. The lead provided strategic guidance and design oversight; I was the primary designer responsible for execution and delivery.",
+    "designContributionPercent": "90–100",
+    "designContributionEstimate": true,
+    "designContributionBasis": "Personal estimate of hands-on product design execution across the platform; excludes design leadership, strategic oversight, engineering and other stakeholder contributions."
   },
   {
-    "slug": "visa-ops-console",
-    "title": "Visa Ops Console",
-    "client": "Visa (via Accenture)",
-    "category": "Fintech Infrastructure",
-    "role": "Senior Product Designer / Design Lead",
-    "year": "2025",
-    "shortDescription": "Designed a network-policy check for Visa's internal operations console, so engineers can verify infrastructure changes without false confidence.",
-    "overview": "An internal operations console used by platform engineers to run and troubleshoot the backend services that payment infrastructure depends on. Think of it as a control panel for operational work — scaling services, checking network policy, database operations. It is not customer-facing and does not generate revenue directly. Its value is making sure critical infrastructure work is done safely and traceably.",
-    "problem": "A routine network-policy check lived on a separate platform. That platform could report a change as successful while silently failing to apply it, and this failure mode had already contributed to a production incident affecting a payment service. The risk was not inconvenience — it was an operations tool creating false confidence about the true state of infrastructure.",
-    "solution": "I brought the policy check into the console, but deliberately did not recreate the external workflow and show a green success state. Instead I designed around what the system can actually verify: the interface distinguishes 'request submitted' from 'verified applied', and points engineers to the external source when authoritative confirmation is still required.",
-    "impact": "The network-policy workflow shipped and is live. Because this is internal tooling for a small, expert audience, I measure it by risk reduction and workflow change rather than invented adoption percentages: routine checks no longer require leaving the console, and the interface no longer implies a certainty the backend cannot guarantee.",
+    "slug": "zenith-ai",
+    "title": "Zenith — AI Product Definition",
+    "client": "Undisclosed",
+    "category": "AI Product Definition",
+    "role": "Product Designer",
+    "year": "2026",
+    "shortDescription": "An AI product still in definition. The work was turning an open brief — no fixed user, no scoped MVP, no way to measure success — into decisions specific enough to build, test and judge.",
+    "overview": "Zenith is an AI product in development whose definition is the work. What it is was still open when I started: a name, a category, and a set of reasonable suggestions, but no fixed user, no problem statement, no MVP boundary, and no agreed way to tell whether a good outcome had happened. My contribution was the definition phase — turning that brief into a set of decisions that product and engineering can act on and that can be tested. That covers the primary user and the job to be done, the problem written so it carries a success metric, the MVP inclusion criteria and the explicit list of what stays out, the AI layer specified as something testable rather than something that merely produces output, the metrics that decide whether the product is working, and the phased roadmap with the gate each phase has to pass. Nothing has been built or launched. What exists is the plan, and the plan is explicit about which parts of it are still assumptions.",
+    "problem": "AI products fail in a specific way that ordinary product work does not: an undefined AI feature can always be demonstrated and can never be finished. With no fixed user, work drifts toward whatever the model happens to do. With no success metric, quality becomes an opinion. With no acceptance criterion for what the model returns, \"working\" cannot be tested — so the feature stays in permanent demo. The cost is highest before launch, because scope compounds: every feature added before the product is validated is a bet placed without evidence, and every one of them has to be maintained afterwards. The brief I was given made this concrete. It named a product type and a development stage and then, honestly, listed its own critical open questions — what the product does, who it is for, and what has already been built.",
+    "solution": "I worked the definition end to end and turned the brief into decisions rather than a feature wish-list. Six pieces did most of the work. One: a customer-definition framework — primary user, economic buyer, job to be done, current alternative, pain and frequency, adoption barrier, willingness to pay — which forces a single primary user and one core workflow instead of a segment list. Two: a problem statement template that does not close without a metric, so success is named before features are argued about. Three: MVP inclusion criteria — five conditions a feature has to meet to enter the build, plus an explicit out-of-scope list covering broad feature expansion, unnecessary integrations, premature enterprise infrastructure, and complex autonomous agents with no demonstrated need. Four: an AI layer specified as a component that gets tested — an orchestration tier for model selection, context retrieval, tools and structured outputs; a representative evaluation dataset; task-specific pass criteria rather than satisfaction scores; versioned prompts, model configuration and evaluation results; retries, timeouts and fallbacks; and human confirmation before anything consequential or irreversible. Five: a metric framework of a small number of outcome measures, with the rule that the north star is chosen only once the core use case is known, because logins, prompts and generated responses measure activity rather than outcome. Six: a five-phase roadmap where every phase has an exit gate, so the plan says what must be true before the next phase starts.",
+    "impact": "To be precise about where this stands: the work reached the definition stage and nothing has been built. There are no adoption numbers, no retention curve, no revenue and no efficiency gain — at this point those would be fiction, and a product that has not shipped cannot have them. What does exist is a definition a team could build from and, just as importantly, a list of what would have to be true for it to be worth building. The part worth putting in front of an employer is the reasoning rather than a result: why the AI layer is specified as an evaluated component, why scope is bounded by criteria rather than enthusiasm, and why the metric set deliberately excludes the measures that would flatter the product. The obvious risk is written down rather than hidden — a well-formed brief can be mistaken for a validated product, and the exit gates and open-decision register exist specifically to prevent that. What would change my confidence: interviews that confirm the problem and the primary user, a prototype that produces an acceptable result on the evaluation set, and one measured cost per successful task.",
     "contributions": [
-      "Scoped the feature against the real failure mode, not the happy path",
-      "Wireframes and interaction design for verification states",
-      "Design reviews with engineering stakeholders",
-      "Escalated the false-success constraint so it was addressed explicitly"
+      "Product definition framework — one primary user, one core workflow, every other segment staged as expansion",
+      "Customer-definition framework and the validation question attached to each candidate segment",
+      "Problem statement template that requires a success metric before any feature work starts",
+      "MVP inclusion criteria and an explicit out-of-scope list for the build",
+      "AI layer specification — orchestration tier, structured outputs, fallback behaviour, and confirmation before consequential actions",
+      "Evaluation design — representative dataset, task-specific pass criteria, versioned prompts, model configuration and evaluation results",
+      "Measurement framework — a small outcome metric set, a north star selection rule, and measurement priorities that change by stage",
+      "Risk register with mitigation for each material risk, and the five-phase roadmap with an exit gate per phase",
+      "The order of work that followed — capture the current state, write the definitive product statement, audit the build, lock the MVP, build the backlog, validate before expanding"
     ],
     "decisions": [
       {
-        "title": "Show verification state, not just execution state",
-        "body": "A submitted policy change and a verified policy change are different facts. The console shows them differently, so a green result always means the change was confirmed rather than merely requested."
+        "title": "Fix the user before the feature list",
+        "body": "The brief listed five plausible segments — individual users, professionals, small and medium businesses, enterprise teams, developers — each with a validation question attached. Choosing a segment is not definition; it is a guess with a table around it. So the framework has to commit: one primary user, one core workflow, and everything else marked as expansion until evidence moves it. A feature list built before that commitment is a backlog, and a backlog is what keeps a product busy without ever finishing it."
       },
       {
-        "title": "Keep the external system one click away",
-        "body": "I did not try to replace the authoritative source. The console removes the context switch for routine checks while preserving a direct path to the external tool whenever authoritative verification is still needed."
+        "title": "Write the problem as a sentence with a metric",
+        "body": "The template I used has one rule: it does not close without a metric. [User] struggles to [task] because [cause]; current alternatives cost [measurable cost]; the product helps achieve [outcome], measured by [metric]. The point is timing. If the success metric is chosen after the features are built, it becomes a number picked to flatter what already exists. Fixing it at the statement stage means later arguments about a feature — does it help, does it hurt, is it worth it — get settled by evidence instead of taste."
       },
       {
-        "title": "Design for a small, expert audience",
-        "body": "Users are platform engineers already fluent in namespaces, pods and ports. I spent the effort on accuracy and traceability rather than on simplification that would have removed detail they actually rely on."
+        "title": "Scope by criteria, not by wish-list",
+        "body": "Scope expansion is the risk that quietly delays every other risk, so it gets the strictest rule. A feature enters the MVP only if it supports the primary journey, addresses a validated need, has a clear acceptance criterion, has acceptable security and running cost, and is necessary to demonstrate the core value. Everything that fails those tests goes to an explicit out-of-scope list: broad feature expansion, unnecessary integrations, premature enterprise infrastructure, complex autonomous agents without a demonstrated need. Writing down what is not being built is as much a part of the definition as writing down what is."
+      },
+      {
+        "title": "Treat AI output as a component that gets tested",
+        "body": "This is the decision that separates a product from a demo. The AI layer gets a representative evaluation dataset, task-specific correctness criteria rather than satisfaction scores, versioned prompts, model configuration and evaluation results, and explicit behaviour for failure — retries, timeouts and fallbacks. It also gets a rule that a consequential or irreversible action requires human confirmation, and that connected data is accessed with least privilege, with prompt injection treated as an input problem rather than an exotic edge case. If the output of a feature cannot be tested, the feature is not finished, it is waiting for a demo."
+      },
+      {
+        "title": "Decide retrieval, agents and fine-tuning from evaluation",
+        "body": "The architecture table for the AI layer leaves retrieval, agents, model fine-tuning and multi-provider support conditional rather than decided, and that is deliberate. Each of them adds cost, latency and new failure modes. The honest way to earn any of them is a measurement showing the simpler version is not good enough — not a general sense that the sophisticated version is what an AI product should have. Architecture decisions recorded as conditions are also easier to reverse than decisions recorded as assumptions."
+      },
+      {
+        "title": "Measure cost per successful task, not per request",
+        "body": "Inference cost is a design input, not a finance afterthought, because it changes what the product can be. A feature that attracts usage but costs a lot per successful task is not commercially viable without usage limits, model optimisation or different pricing — and every one of those is a decision made in the interface, not after launch. Putting cost per successful task next to task completion rate in the same metric set is what stops the two being optimised separately."
+      },
+      {
+        "title": "Choose the north star after the use case, not before",
+        "body": "It is tempting to pick the metric early so the product has a target. The temptation produces vanity metrics — logins, prompts sent, outputs generated — which are easy to move and say nothing about whether the user got what they came for. The rule I set was that the north star tracks how often users successfully achieve the primary outcome, and that it gets selected once the core use case is known. Until then the measurement priority is feasibility and quality: a benchmark dataset, a definition of a successful task, latency, cost, and the common failure cases."
       }
     ],
     "outcomes": [
-      "Network-policy workflow shipped and is live",
-      "Routine policy checks no longer require leaving the console",
-      "Removed a known false-success failure mode that had contributed to a production incident",
-      "Layout and patterns reused as the basis for further operational features"
+      "The open brief was turned into a definition with one primary user, one core workflow, and a problem statement that carries a success metric",
+      "MVP inclusion criteria and an explicit out-of-scope list were set as the boundary for the build",
+      "The AI layer was specified with evaluation criteria, defined failure behaviour, and a confirmation rule for consequential actions",
+      "A small outcome metric set was defined, with the rule for selecting the north star and measurement priorities that change by stage",
+      "A five-phase roadmap was written with an exit gate per phase, alongside a risk register and an open-decision register",
+      "No product has been built or launched, so there are no adoption, retention or revenue figures to report"
     ],
-    "systemsWork": "As the console grew across more operational capabilities, designers were repeatedly rebuilding the same structural decisions: how an operation behaves, which screens are required, what belongs in an audit trail. I helped build a reusable design-system process that encodes those decisions once and enforces them on new work, including a strict convention to flag missing information rather than fabricate it — so an AI-assisted system cannot quietly invent a requirement that looks authoritative downstream.",
-    "explainShort": "I work on an internal operations console that platform engineers use to manage and troubleshoot the infrastructure behind payment services. My work sits at two levels. At the feature level, I brought a network-policy check into the console after a real incident showed the external system could report success without applying the change, so I designed around that false-confidence risk. At the systems level, I helped build a reusable design process that encodes the console's rules and evidence requirements so new features stay consistent as the product grows.",
+    "systemsWork": "An AI product is a set of contracts, and the failures come from the gaps between them: between what the user asked for and what the model produced, between what the model produced and what the system did about it, between what was measured and what was actually the outcome, between what was scoped and what got built anyway. Each gap is closed by one decision made once, in one place, rather than per feature. That is why the evaluation criteria, the confirmation rule, the metric set and the scope criteria are written as system-level rules — they apply to every feature built on top of them, including the ones that do not exist yet. The same logic shapes the roadmap: phases with exit gates are a mechanism for keeping the plan honest at the point where it is cheapest to change course, before code is written rather than after, and for keeping the risk register current by forcing a reassessment whenever user evidence invalidates an assumption. The most important structural choice in the whole definition was refusing to let the AI be the strategy. Every proposed capability had to answer for itself in terms of a user outcome, and anything that could not was pushed behind a condition.",
+    "explainShort": "Zenith is an AI product that is still in definition, which is exactly where the work I did sits. What I was given was an open brief: a name, a category, and a set of reasonable suggestions, but no user, no problem, no MVP, and no way to tell whether the thing worked. So my job was the unglamorous, high-leverage part — turn it into decisions. I fixed one primary user and one core workflow and refused the feature list. I wrote the problem so it had to carry a success metric. I set five criteria for what could enter the MVP and an explicit list of what could not. I specified the AI layer as something testable — an evaluation dataset, task-specific pass criteria, defined failure behaviour, and human confirmation before anything consequential. I defined success as a small set of outcome metrics, with the north star chosen after the use case rather than before. Nothing has launched, there are no numbers, and the target user is still unvalidated. The honest value of this work is that the next step is unambiguous: close the open questions, talk to users, then build only what the evidence points at.",
+    "tags": [
+      "Product Definition",
+      "AI Product Strategy",
+      "MVP Scoping",
+      "AI Evaluation",
+      "Success Metrics",
+      "Roadmapping"
+    ],
+    "isFeatured": false,
+    "status": "published",
+    "roadmap": [
+      {
+        "phase": "Phase 1 — Product definition and discovery",
+        "focus": "Document the problem, target user and desired outcome. Interview prospective users and examine existing alternatives. Define the value proposition and core user journey. Set initial success metrics and acceptance criteria.",
+        "duration": "1–2 weeks",
+        "status": "Definition drafted, user validation outstanding",
+        "exitGate": "A clearly defined, evidence-backed use case."
+      },
+      {
+        "phase": "Phase 2 — Prototype and technical validation",
+        "focus": "Prototype the main workflow. Evaluate model and architecture options. Test output quality, usability, latency and estimated unit cost. Identify security and data-handling requirements.",
+        "duration": "1–3 weeks",
+        "status": "Not started",
+        "exitGate": "Evidence that the core experience is useful and technically feasible."
+      },
+      {
+        "phase": "Phase 3 — MVP implementation",
+        "focus": "Implement the primary workflow end to end. Build the necessary interface, backend and AI integration. Add essential data handling, access controls and observability. Test core scenarios and failure modes.",
+        "duration": "2–6 weeks",
+        "status": "Not started",
+        "exitGate": "A usable, testable product with the essential workflow working reliably."
+      },
+      {
+        "phase": "Phase 4 — Closed beta and validation",
+        "focus": "Test with a small group of intended users. Observe completion rates, repeat usage and qualitative feedback. Fix high-impact defects and improve weak AI behaviours. Validate willingness to pay and support requirements.",
+        "duration": "2–4 weeks",
+        "status": "Not started",
+        "exitGate": "The core use case demonstrates repeatable user value."
+      },
+      {
+        "phase": "Phase 5 — Launch and optimisation",
+        "focus": "Release to the selected market. Track product quality, retention, acquisition and unit economics. Improve onboarding and conversion. Expand scope only when user evidence justifies it.",
+        "duration": "After launch criteria are met",
+        "status": "Not started",
+        "exitGate": "Stable operations and a measurable path toward sustainable growth."
+      }
+    ],
+    "metrics": [
+      {
+        "name": "Activation rate",
+        "measures": "Percentage of new users reaching the first meaningful result"
+      },
+      {
+        "name": "Task completion rate",
+        "measures": "Percentage of attempts producing an acceptable result"
+      },
+      {
+        "name": "Time to value",
+        "measures": "Time from onboarding to first useful outcome"
+      },
+      {
+        "name": "Retention",
+        "measures": "Percentage of users returning over a defined period"
+      },
+      {
+        "name": "User satisfaction",
+        "measures": "Perceived usefulness and quality, read alongside observed behaviour"
+      },
+      {
+        "name": "AI quality",
+        "measures": "Correctness and usefulness on a representative evaluation set"
+      },
+      {
+        "name": "Reliability",
+        "measures": "Successful requests and service availability"
+      },
+      {
+        "name": "Cost per successful task",
+        "measures": "AI and infrastructure cost divided by successful tasks"
+      },
+      {
+        "name": "Conversion rate",
+        "measures": "Percentage of eligible users becoming paying customers"
+      },
+      {
+        "name": "Gross margin",
+        "measures": "Revenue after the applicable cost of service"
+      }
+    ],
+    "openQuestions": [
+      {
+        "area": "Product identity",
+        "priority": "Critical",
+        "question": "What does Zenith do, and what is its one-sentence value proposition?"
+      },
+      {
+        "area": "Target user",
+        "priority": "Critical",
+        "question": "Who is the first intended customer, and what problem do they need solved?"
+      },
+      {
+        "area": "Current implementation",
+        "priority": "Critical",
+        "question": "What has already been built — a repository, working prototype, architecture document or design file?"
+      },
+      {
+        "area": "AI approach",
+        "priority": "High",
+        "question": "Which models, data sources, tools or integrations are used or planned?"
+      },
+      {
+        "area": "Business and budget",
+        "priority": "High",
+        "question": "Who pays, what is the budget, and what commercial outcome is expected?"
+      },
+      {
+        "area": "Execution constraints",
+        "priority": "High",
+        "question": "Who is on the team, what is the target release date, and what commitments already exist?"
+      }
+    ],
+    "visuals": [
+      {
+        "id": "problem-canvas",
+        "type": "concept",
+        "label": "Concept",
+        "title": "Definition canvas",
+        "caption": "The problem statement template as it was used. The highlighted field is the one that cannot be left empty — the statement does not close until the success metric is written."
+      },
+      {
+        "id": "scope-board",
+        "type": "concept",
+        "label": "Concept",
+        "title": "MVP scope board",
+        "caption": "Scope held to five criteria rather than a wish-list. The right-hand column matters as much as the left: what is not being built is written down, so it stops being re-argued later."
+      },
+      {
+        "id": "eval-harness",
+        "type": "concept",
+        "label": "Concept",
+        "title": "Evaluation harness",
+        "caption": "How the AI layer was specified to be testable rather than demonstrable — a representative dataset, task-specific pass criteria, versioned prompts and models, and cost read next to task completion rate."
+      },
+      {
+        "id": "definition-pipeline",
+        "type": "diagram",
+        "label": "Diagram",
+        "title": "Definition pipeline",
+        "caption": "The order the work happened in. Each stage removed one class of ambiguity, and each one was written before the next so later arguments could be settled by evidence rather than enthusiasm."
+      },
+      {
+        "id": "ai-request-path",
+        "type": "diagram",
+        "label": "Diagram",
+        "title": "AI request path",
+        "caption": "The path an AI feature has to survive: an evaluated output, defined failure behaviour, least-privilege access to connected data, and a human confirmation step before anything consequential or irreversible."
+      },
+      {
+        "id": "scope-decision",
+        "type": "diagram",
+        "label": "Diagram",
+        "title": "Scope decision",
+        "caption": "How a proposed feature earned its place in the build. Anything that fails one of the five criteria is named on the out-of-scope list rather than quietly deferred."
+      }
+    ],
+    "roleScope": "As Product Designer, I owned the hands-on design and product-definition work under the guidance of a Lead Product Designer.",
+    "designApproach": "Defined the user and measurable outcome first, bounded the MVP with explicit inclusion criteria, then specified the AI layer as an evaluated component with failure behaviour and phase exit gates.",
+    "projectTimeline": "6 months",
+    "teamSize": "2 designers",
+    "teamComposition": "Design team: a Lead Product Designer and me. I worked under the lead’s guidance and owned the hands-on product design execution.",
+    "designSystem": "Nova, a custom dark-theme design system.",
+    "designContributionPercent": "90–100",
+    "designContributionEstimate": true,
+    "designContributionBasis": "Personal estimate of hands-on product design execution; excludes the Lead Product Designer’s strategic guidance and oversight."
+  },
+  {
+    "locked": true,
+    "slug": "visa-ops-console",
+    "title": "Confidential — Payments Operations Console",
+    "client": "Confidential — global payments network",
+    "category": "Fintech Infrastructure",
+    "role": "Senior Product Designer",
+    "year": "",
+    "shortDescription": "A network-policy workflow for an internal operations console, with execution feedback and guidance to verify the live policy in its source system.",
     "tags": [
       "Fintech",
       "Internal Tools",
       "Design Systems",
-      "Infrastructure",
       "Enterprise UX"
     ],
     "isFeatured": true,
@@ -109,8 +330,8 @@
     "slug": "xflow",
     "title": "Xflow — Data Product & Design System",
     "category": "Enterprise Data Product",
-    "role": "Lead Product Designer",
-    "year": "2024",
+    "role": "Product Lead Designer",
+    "year": "2024–2025",
     "shortDescription": "A complex enterprise data product built around cell-level lineage, large datasets and permissions — where I moved the interface from a general-purpose component library onto a design system built for dense data work.",
     "overview": "An enterprise data product for teams working with large tables of data who need to trace where any value came from and rely on permissions to control who can see and change what. My documented work: moving the interface off Ant Design onto a custom design system, developing the reusable components that made that possible, supporting business-analysis requirements and prototyping, and handling a migration experience built around a stated 150,000-row limit.",
     "problem": "The product had grown on Ant Design, which is a strong general-purpose component library but was never designed for dense, data-heavy surfaces. On grids, filters and lineage views the same interaction behaved differently from module to module, because each feature had re-decided the basics. New work kept re-litigating table density, selection behaviour, and empty and error states, and the result was an interface that looked consistent but did not behave consistently.",
@@ -159,7 +380,23 @@
       "Cell-level Lineage"
     ],
     "isFeatured": true,
-    "status": "published"
+    "status": "published",
+    "visualsTitle": "The idea, illustrated",
+    "visuals": [
+      {
+        "id": "project-xflow",
+        "title": "Data lineage view",
+        "label": "Illustration",
+        "caption": "Illustrative view of tracing a value from source through transformation to result. It is not a screenshot of the product."
+      }
+    ],
+    "roleScope": "Led the move from Ant Design to a custom product design system and designed the reusable table, lineage, permissions and migration patterns.",
+    "designApproach": "Started with the dense table and grid rules shared across modules, then designed product-specific patterns for cell-level lineage, permissions and large-data migration.",
+    "designSystem": "A custom design system replaced Ant Design, with a shared table/grid foundation and reusable components for dense data work.",
+    "projectTimeline": "January 2024 – April 2025",
+    "teamSize": "2 designers",
+    "teamComposition": "Design team: I was the Product Lead Designer alongside one other designer.",
+    "stakeholderCollaboration": "I collaborated directly with project stakeholders."
   },
   {
     "slug": "sitara",
@@ -215,7 +452,27 @@
       "Mentorship"
     ],
     "isFeatured": true,
-    "status": "published"
+    "status": "published",
+    "visualsTitle": "Selected Figma design",
+    "visuals": [
+      {
+        "id": "sitara-dashboard-figma",
+        "type": "image",
+        "title": "Sitara dashboard",
+        "src": "images/sitara-dashboard-figma.png",
+        "alt": "Sitara dashboard concept showing Saloon, Hotel, and Retail modules",
+        "label": "Figma design",
+        "caption": "Dashboard frame from the Sitara design file. This shows the proposed interface, not a verified production screenshot."
+      }
+    ],
+    "coverImage": "images/sitara-dashboard-figma.png",
+    "coverAlt": "Sitara point of sale dashboard Figma design with hospitality and retail modules",
+    "projectTimeline": "Approximately 8 months (2023)",
+    "teamSize": "3 designers",
+    "teamComposition": "Design team: I led two junior designers. The size of the wider product team is not yet confirmed.",
+    "roleScope": "Led product direction, shared information architecture, design-system decisions and design review across the suite.",
+    "designApproach": "I invested most of my time in research, including workflow mapping and competitor review, while designing the suite from scratch. I tested design mockups with live users, gathered feedback and updated the designs. I organized the product around one shared shell, navigation model and record language across seven modules, with custom components and cross-module flows.",
+    "designSystem": "Untitled UI provided the component foundation; I extended it with custom components and connected application patterns for the suite."
   },
   {
     "slug": "fingo",
@@ -249,94 +506,59 @@
       "In Verification"
     ],
     "isFeatured": false,
-    "status": "published"
+    "status": "published",
+    "visualsTitle": "Selected Figma design",
+    "visuals": [
+      {
+        "id": "fingo-products-figma",
+        "type": "image",
+        "title": "Fingo product areas",
+        "src": "images/fingo-products-figma.png",
+        "alt": "Fingo Figma design showing loan products, credit score, and EMI calculator cards",
+        "label": "Figma design",
+        "caption": "Product-area frame from the Fingo design file. It shows a proposed interface, not a verified production screenshot or current financial offer."
+      }
+    ],
+    "coverImage": "images/fingo-products-figma.png",
+    "coverAlt": "Fingo Figma design showing personal, business, and home loans alongside credit score and EMI tools",
+    "projectTimeline": "6 months",
+    "teamSize": "1 designer",
+    "teamComposition": "Design team: I was the sole designer.",
+    "roleScope": "I was the sole designer, responsible for the product-design direction of the loan-mediation experience.",
+    "stakeholderCollaboration": "I worked directly with the client on their requirements, then handed over the custom designs.",
+    "designApproach": "I developed custom designs from the client’s requirements and handed the design work over to the client."
   },
   {
+    "locked": true,
     "slug": "nimbus",
-    "title": "Visa Nimbus — Visa Application & Case Management Platform",
+    "title": "Confidential — Visa Application & Case Management",
     "client": "Confidential — visa and immigration services operator",
     "category": "Visa & Immigration Workflow",
     "role": "Senior Product Designer",
     "year": "2026",
     "shortDescription": "A visa and immigration platform where the hard design problem is not showing a green check, but making it provable which document is missing, who owns the next step, and what the system has actually verified.",
-    "overview": "Visa Nimbus is a visa and immigration workflow platform. Applicants use it to work out which visa pathway applies to them, prepare the required evidence, and follow their case; consultants and operations teams use it to handle cases at volume. The product sits between an applicant and a process that is genuinely hard to model: requirements differ by destination and visa category, evidence is incomplete for long stretches, and the platform is never the authority that decides the outcome. I worked on the product and interaction design for the applicant case journey, the document and task model, and the status and verification language, while the project consolidated its prior decisions into a single brief.",
-    "problem": "Most of a visa journey is waiting — for a document, an appointment, a payment, a decision. Every stage of the product is therefore a state of partial knowledge, and the interface has to be honest about which one it is in. The failure mode is specific and severe: a product that renders 'submitted' and 'verified' the same way, or that shows a checklist as complete when the application was never filed, manufactures a confidence the underlying process cannot support. For an applicant that means a missed appointment or a rejected file; for a consultant it means a case handed on in the wrong state; for the platform itself it means legal exposure, because a visa-adjacent product that appears authoritative is making guidance it is not qualified to make.",
-    "solution": "I designed around evidence rather than completion. The case model separates what has been requested from what has been confirmed, separates a document uploaded from a document reviewed and accepted, and separates a checklist that is complete from an application that has been officially submitted — each with a distinct label rather than a shared green state. Every status carries a responsible party and a timestamp, so the interface can answer 'what happens next and who has to move' rather than only 'how far along are you'. Requirements are content, not chrome: each one carries the official source it came from and the date it was last verified, so an outdated rule is visible rather than silently wrong. Where the platform uses AI, it extracts and suggests, it never asserts — extracted fields are proposals the applicant confirms, and anything ambiguous escalates to a person. I also worked on the wording of the moments where the product is least able to help: what is still missing, what a fee actually covers, and how long a processing estimate is, in language that does not promise an outcome the process cannot deliver.",
-    "impact": "Visa Nimbus was at the stage of consolidating its prior decisions when I worked on it, so I am not going to publish adoption numbers or approval rates for work that has not shipped. What exists is a design position the project can now build against: a case model where the states mean what they say, a checklist whose rules can be traced and dated, and a set of rules for AI and copy that keep the product from implying certainty it cannot support. I would rather hand over an honest description of the design than a case study with a launch date attached to a blueprint.",
-    "contributions": [
-      "Product and interaction design for the applicant case journey: pathway discovery, checklist, document upload and review, task ownership, and case status history",
-      "Design of the verification-state model that distinguishes requested from confirmed, uploaded from accepted, and checklist-complete from officially submitted",
-      "Design of the requirement-provenance pattern, so every rule in a checklist carries its official source and last-verified date",
-      "Copy and content design for deadlines, fee breakdowns and processing-time uncertainty, so the interface states its limits without overclaiming",
-      "Design review of the AI assistance layer: confidence thresholds, applicant confirmation of extracted fields, and mandatory human review on ambiguous cases",
-      "Consolidation of prior project decisions into a single master brief that separated what was confirmed from what was merely proposed"
-    ],
-    "decisions": [
-      {
-        "title": "A complete checklist is not a submitted application",
-        "body": "The two states look identical to a progress bar, so I gave them different names, different icons and different evidence requirements. Submission is only recorded when there is a verifiable confirmation behind it, or an explicitly qualified status that says who reported it and on what basis."
-      },
-      {
-        "title": "Every requirement carries its source and its last-verified date",
-        "body": "Visa rules change, and the product is judged on whether its guidance was right. Treating requirements as versioned content with provenance, rather than as text built into a screen, is what makes it possible to show a user how fresh a rule is and to flag the ones that have gone stale."
-      },
-      {
-        "title": "State what the system can verify",
-        "body": "Where the platform cannot confirm an outcome, it says so in the interface instead of degrading into a generic success state. A green result always means the underlying fact was confirmed, not that a request left the building."
-      },
-      {
-        "title": "AI extracts, the applicant confirms",
-        "body": "Extraction is presented as a proposal, never as evidence of authenticity, and every field it touches routes back to a person before it enters the case. Anything the model is unsure about escalates rather than being guessed, because a confident wrong value in a visa file is expensive to discover later."
-      }
-    ],
-    "outcomes": [
-      "A consolidated master brief separating confirmed, superseded, proposed and unresolved decisions",
-      "A defined case lifecycle and status vocabulary that distinguishes preparation, submission, external decision and closure",
-      "A document and task model that makes the outstanding item, its owner and the next action explicit at every stage",
-      "Requirement provenance designed into the checklist, so no rule can appear without a source and a verification date",
-      "A defined AI guardrail set, agreed before any AI feature was built"
-    ],
-    "systemsWork": "The reusable output of a platform like this is not a screen. It is the set of decisions that have to remain true across every module: what counts as evidence, who owns the next step, how uncertainty is written, and where a human must review before the system asserts something. Encoding those once as content rules and status semantics, rather than as screen-specific design, is what lets the platform add a new destination or a new visa category without re-litigating the interface. It is the same discipline as building a reusable design process for an internal operations console, applied to process and language instead of to components. The system's real test is whether a second module can be added by someone who was not in the original design decisions.",
-    "explainShort": "Visa Nimbus is a visa and immigration platform — applicants use it to work out what they need and prepare it, consultants and operations teams use it to handle cases at volume. The design problem is that most of the journey is a wait, so the product is mostly about states of partial knowledge: document uploaded but not reviewed, checklist done but the application not filed, request sent but the change not confirmed. Most of my work was making those states distinct and unambiguous on screen, so a person always knows what is actually done, what is outstanding, and who has to act next. I also designed how requirements are displayed, so every rule shows where it came from and when it was last checked, and I set the rules for using AI in the product: it may suggest, a person confirms, and nothing in the interface implies an outcome the process cannot guarantee. I have kept the client and the internal systems off this page, and I have not attached outcomes to a project that is still consolidating its decisions.",
     "tags": [
-      "Visa & Immigration",
       "Case Management",
       "Document Workflow",
       "Content Design",
-      "AI Guardrails",
-      "Confidential"
+      "AI Guardrails"
     ],
     "isFeatured": false,
     "status": "published"
   },
   {
-    "slug": "project-sg",
-    "title": "Project SG",
-    "category": "To Be Confirmed",
+    "locked": true,
+    "slug": "sentinel-grid",
+    "title": "Confidential — Enterprise Security & Monitoring Platform",
+    "client": "Confidential — enterprise security & monitoring platform",
+    "category": "Enterprise Security & Monitoring",
     "role": "Product Designer",
-    "year": "2024",
-    "shortDescription": "A project in the portfolio inventory whose scope, name and contributions are not yet confirmed. Listed here so the record is complete, and written up once the source material is recovered.",
-    "overview": "A project referenced in the portfolio source material as 'SG', currently without a confirmed name, scope or set of contributions. It is kept in the inventory so that the record of what was worked on stays complete while the material behind it is recovered.",
-    "problem": "There is no verified problem statement to publish yet. The project exists in the inventory; the evidence behind it does not yet exist in a form that can be written up.",
-    "solution": "Nothing is asserted here by design. The correct next step is to recover the project material — the Figma files, documents or summaries that describe what was built and why — and then write the case study from that record.",
-    "impact": "No outcome is claimed. The entry exists so that the inventory is honest about what is known and what is not.",
-    "contributions": [
-      "Project design work — scope and specific contributions pending recovery of the source material"
-    ],
-    "decisions": [
-      {
-        "title": "An empty slot is better than a filled-in guess",
-        "body": "A portfolio is a claim about what was done. Where the material is missing, the honest options are to write nothing or to write clearly what is missing. The second keeps the inventory complete without making a claim I cannot support, and it makes the gap visible to whoever picks the work up next."
-      }
-    ],
-    "outcomes": [
-      "Awaiting recovery of project material before a case study is written"
-    ],
-    "systemsWork": "The same principle applies across the whole portfolio: the value of a case study is that the reasoning is inspectable, and a reconstruction is not reasoning. Where evidence is missing, the design decision is to publish the gap rather than the gap-filler.",
-    "explainShort": "This is a placeholder in the portfolio for a project I have not yet been able to write up properly. I know the work exists, but I do not yet have the material that would let me describe the problem, my decisions or the outcome without reconstructing it. I have left it visible rather than quietly dropped it, because the inventory should reflect what was worked on — and I would rather mark the gap than fill it with something that reads well but might not be true.",
+    "shortDescription": "A security, monitoring and media infrastructure platform where the verified record is the design artefact and the master brief that governs it — the source frames exist, but the product definition and outcomes do not yet.",
     "tags": [
-      "In Verification",
-      "Inventory"
+      "Security Ops",
+      "Monitoring",
+      "Design Documentation",
+      "In Verification"
     ],
     "isFeatured": false,
     "status": "published"
@@ -344,36 +566,68 @@
   {
     "slug": "my4score",
     "title": "My4 Score",
-    "category": "Mobile App",
-    "role": "Lead UX/UI Designer",
+    "category": "ESG Brand Scoring App",
+    "role": "Sole Designer",
     "year": "2022",
-    "shortDescription": "A mobile credit-health app that turns an opaque score into something a person can see, understand and act on. Possible overlap with the Fingo entry — being confirmed.",
-    "overview": "A mobile financial-wellness app built around credit health: showing where a credit score comes from and what a person can actually do about it. The product and design direction are part of my project history. There is a real possibility that this is the same product as the Fingo entry above rather than a separate case, and I am resolving that before writing it up in full.",
-    "problem": "A credit score is a number with no visible reasoning behind it. People are told it matters and then shown a figure they cannot interpret, cannot tell apart from a grade, and cannot connect to a specific action. The problem is not that the number is wrong — it is that the number is disconnected from anything a person can do.",
-    "solution": "The design direction was to make the score legible: a visual representation of the health of the score rather than a bare figure, and a step-by-step path showing which actions lead to which improvement, with milestones that mark progress along the way. The specific screens, the validation work and the results still need confirming against the project record.",
-    "impact": "This project is listed as a supporting project rather than a full case study. Any rating or engagement figure would need approved evidence, and the relationship between this entry and the Fingo entry is being confirmed — publishing them as two separate achievements when they are one would overstate the work.",
+    "shortDescription": "A small mobile app for ESG brand scoring, separate from Fingo. I was the only designer and worked closely with the manager during a three-month project.",
+    "overview": "My4 Score (also known as my4, at my4score.com) was an ESG-focused financial technology and data company. I worked on a small brand-scoring app as its sole designer for three months, collaborating closely with the manager. The available Figma file shows brand browsing and environmental-topic selection; the scoring methodology and production outcome have not been verified for this portfolio.",
+    "problem": "The project centered on an ESG-related brand score. The specific user problem, scoring methodology and validation evidence have not been documented here, so this supporting case study stays focused on the confirmed design work.",
+    "solution": "I designed the small mobile app. The available Figma screens show people browsing brands, choosing which environmental issues matter to them and viewing a “My Score” area. These frames are design concepts; they do not establish which features shipped.",
+    "impact": "The confirmed record is a three-month design project with a surviving Figma file. No launch, adoption, scoring-accuracy or business-impact figures are confirmed, so none are claimed.",
     "contributions": [
-      "Lead UX/UI design for the credit-health mobile application",
-      "Design of the visual credit-health representation and the step-by-step improvement path"
-    ],
-    "decisions": [
-      {
-        "title": "Resolve the overlap before writing the case study",
-        "body": "A credit-health app and a loan-mediation fintech product may well be the same project, and the difference matters — it changes how many pieces of work this portfolio claims. Merging the two into one honest case study is a better outcome than two overlapping ones, so that is what I am doing before writing either up properly."
-      }
+      "Sole designer for the mobile brand-scoring app",
+      "Designed the brand-browsing and ESG topic-selection screens shown in the Figma file",
+      "Worked closely with the manager during the project"
     ],
     "outcomes": [
-      "Listed as a supporting project; overlap with the Fingo entry is being confirmed before a full case study is written"
+      "A mobile brand-scoring concept was designed over three months",
+      "The surviving Figma file documents brand browsing and environmental-topic selection",
+      "No product or business outcome metrics are confirmed"
     ],
-    "systemsWork": "The most transferable idea in a financial-wellness product is that every number in the interface should be connected to an action. That principle is a design-system rule as much as a layout decision: the score, the factors and the steps are one connected model, so a change in one is reflected everywhere it appears.",
-    "explainShort": "This is a mobile credit-health app, and the design idea behind it is that a credit score should not be a bare number. I worked on making the score something a person can read at a glance and connect to specific things they can do about it, including a step-by-step path with milestones. It is listed as a supporting project for now for two reasons: I am confirming whether this is the same product as the Fingo entry, and any rating or engagement figure would need approved evidence. Once that is settled I will write it up as a full case study.",
+    "explainShort": "My4 Score was a small ESG brand-scoring app, separate from Fingo. I was its only designer for three months and worked closely with the manager. The Figma work shows brand browsing and a flow for choosing environmental topics. I can show the design, but I do not have verified launch or impact figures.",
     "tags": [
+      "ESG",
+      "Brand Scoring",
       "Mobile App",
-      "Fintech",
-      "Supporting Project",
-      "In Verification"
+      "Supporting Project"
     ],
     "isFeatured": false,
-    "status": "published"
+    "status": "published",
+    "visualsTitle": "Selected Figma design",
+    "visuals": [
+      {
+        "id": "my4score-topics-figma",
+        "type": "image",
+        "title": "My4 Score topic selection",
+        "src": "images/my4score-topics-figma.png",
+        "alt": "My4 Score mobile design asking users to rank environmental topics that matter when evaluating a company",
+        "label": "Figma design",
+        "caption": "Topic-selection frame from the My4 Score Figma file. It is a design mockup, not a verified production screenshot."
+      }
+    ],
+    "projectTimeline": "3 months",
+    "coverImage": "images/my4score-topics-figma.png",
+    "coverAlt": "My4 Score Figma design for ranking ESG topics in a brand-scoring app",
+    "teamSize": "1 designer",
+    "teamComposition": "I was the sole designer and worked closely with the manager.",
+    "roleScope": "I was the only designer for the small brand-scoring app.",
+    "stakeholderCollaboration": "I worked closely with the manager."
+  },
+  {
+    "locked": true,
+    "slug": "admin-design-orchestration",
+    "title": "Confidential — Enterprise Design Automation",
+    "client": "Confidential — enterprise operations",
+    "category": "Enterprise Design Systems",
+    "role": "Senior Product Designer",
+    "year": "",
+    "shortDescription": "A protected case study about applying established design rules to new operational feature requests.",
+    "tags": [
+      "Design Systems",
+      "Enterprise UX",
+      "Protected"
+    ],
+    "isFeatured": false,
+    "status": "draft"
   }
 ]

@@ -31,7 +31,7 @@
 - **Xflow (2024):** AI-powered SaaS for business analysts and complex data project management.
 - **Sitara:** SaaS workflow optimization platform.
 - **Fingo & Olyv:** Fintech platforms focused on digital lending and financial inclusion.
-- **My4 Score:** Mobile application for credit assessment and financial health tracking.
+- **My4 Score:** Separate three-month mobile ESG brand-scoring app. The author was the sole designer and worked closely with the manager. Earlier credit-assessment wording was incorrect.
 - **TecAccelerator:** SaaS accelerator platform for enterprise scaling.
 
 ---

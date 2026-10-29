@@ -1,10 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const ThemeContext = createContext();
+const themes = new Set(['editorial', 'swiss', 'creative']);
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('portfolio_theme') || 'editorial';
+    const q = new URLSearchParams(window.location.search).get('theme');
+    const selected = q || localStorage.getItem('portfolio_theme');
+    return themes.has(selected) ? selected : 'editorial';
   });
 
   useEffect(() => {

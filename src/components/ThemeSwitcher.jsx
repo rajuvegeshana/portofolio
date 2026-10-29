@@ -11,6 +11,7 @@ export default function ThemeSwitcher() {
         <Palette className="w-3.5 h-3.5" />
       </span>
       <button
+        aria-pressed={theme === 'editorial'}
         onClick={() => setTheme('editorial')}
         className={`px-3 py-1.5 text-xs rounded-full transition-all ${
           theme === 'editorial'
@@ -21,6 +22,7 @@ export default function ThemeSwitcher() {
         Editorial
       </button>
       <button
+        aria-pressed={theme === 'swiss'}
         onClick={() => setTheme('swiss')}
         className={`px-3 py-1.5 text-xs rounded-full transition-all ${
           theme === 'swiss'
@@ -31,6 +33,7 @@ export default function ThemeSwitcher() {
         Swiss
       </button>
       <button
+        aria-pressed={theme === 'creative'}
         onClick={() => setTheme('creative')}
         className={`px-3 py-1.5 text-xs rounded-full transition-all ${
           theme === 'creative'

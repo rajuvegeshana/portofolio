@@ -2,3 +2,8 @@ node_modules
 dist
 .DS_Store
 *.local
+
+# Protected case studies, the access key hash, the admin password hash and the
+# session secret. This directory holds confidential content and must never be
+# committed to a public repository.
+server/data/

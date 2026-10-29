@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: portfolio-content-server
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: node server/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Render binds to 0.0.0.0; locally the server stays on 127.0.0.1.
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PUBLIC_MODE
+        value: "1"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DATA_DIR
+        value: /var/data
+      # The static site runs on GitHub Pages, so the browser calls this API
+      # cross-origin. Only the listed origin may send credentialed requests.
+      - key: ALLOWED_ORIGINS
+        value: https://rajuvegeshana.github.io
+      # Set once at creation. If left empty, a password is generated and
+      # printed in the deploy log on first boot.
+      - key: ADMIN_PASSWORD
+        sync: false
+    disk:
+      name: portfolio-content
+      mountPath: /var/data
+      sizeGB: 1

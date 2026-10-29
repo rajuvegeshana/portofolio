@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/api': 'http://localhost:3001'
+      // The trailing slash keeps /portofolio/api-config.json out of the proxy.
+      '^/portofolio/api/': 'http://localhost:3001'
     }
   }
 })
