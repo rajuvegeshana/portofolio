@@ -12,11 +12,12 @@ import Home from './pages/Home';
 import CaseStudy from './pages/CaseStudy';
 import About from './pages/About';
 import Admin from './pages/Admin';
+import InviteSetup from './pages/InviteSetup';
 
 function PageMeta() {
   const { pathname } = useLocation();
   React.useEffect(() => {
-    const page = pathname === '/' ? 'Work' : pathname === '/about' ? 'About & Experience' : pathname === '/admin' ? 'Admin' : pathname.startsWith('/project/') ? 'Case Study' : 'Page Not Found';
+    const page = pathname === '/' ? 'Work' : pathname === '/about' ? 'About & Experience' : pathname.startsWith('/admin') ? 'Admin' : pathname.startsWith('/project/') ? 'Case Study' : 'Page Not Found';
     document.title = `${page} | Harikrishna — Senior Product Designer`;
   }, [pathname]);
   return null;
@@ -39,6 +40,7 @@ function App() {
               <Route path="/project/:slug" element={<CaseStudy />} />
               <Route path="/about" element={<About />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/setup" element={<InviteSetup />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
@@ -57,6 +59,14 @@ const spaPath = sessionStorage.getItem('spa-path');
 if (spaPath) {
   sessionStorage.removeItem('spa-path');
   history.replaceState(null, '', spaPath);
+}
+
+// Supabase invite links return a short-lived token in the URL fragment. Move it
+// into this tab's session before React renders, then remove it from the URL.
+const inviteParams = new URLSearchParams(window.location.hash.slice(1));
+if (inviteParams.get('type') === 'invite' && inviteParams.get('access_token')) {
+  sessionStorage.setItem('portfolio_invite_token', inviteParams.get('access_token'));
+  history.replaceState(null, '', `${import.meta.env.BASE_URL}admin/setup`);
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

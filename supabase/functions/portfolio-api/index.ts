@@ -261,6 +261,25 @@ Deno.serve(async (req: Request) => {
     if (method === 'POST' && path === '/api/auth/logout') return reply(req, { ok: true });
     if (method === 'GET' && path === '/api/auth/session') return reply(req, { admin: await isAdmin(req) });
 
+    if (method === 'POST' && path === '/api/auth/accept-invite') {
+      const user = await adminUser(req);
+      if (!user) return fail(req, 'Invitation is invalid or this account is not enabled.', 401);
+      const password = String((await body(req))?.password || '');
+      if (password.length < 12) return fail(req, 'Use a password of at least 12 characters.', 400);
+      const token = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
+      const changed = await fetch(`${projectUrl}/auth/v1/user`, {
+        method: 'PUT',
+        headers: {
+          apikey: publishableKey,
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+      if (!changed.ok) return fail(req, 'Could not set the password. Request a new invitation.', 400);
+      return reply(req, { success: true });
+    }
+
     if (!await isAdmin(req)) return fail(req, 'Admin sign-in required', 401);
 
     if (method === 'POST' && path === '/api/projects') {
