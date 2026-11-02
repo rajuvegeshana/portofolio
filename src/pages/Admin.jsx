@@ -911,7 +911,7 @@ export default function Admin() {
                   type={showKey ? 'text' : 'password'}
                   value={newKey}
                   onChange={(e) => setNewKey(e.target.value)}
-                  placeholder="New access key (16+ characters)"
+                  placeholder="New access key"
                   className={field}
                 />
                 <button
@@ -925,7 +925,7 @@ export default function Admin() {
               </div>
               <button
                 onClick={saveKey}
-                disabled={newKey.length < 16}
+                disabled={!newKey.trim()}
                 className="px-5 py-2 bg-theme-accent text-white rounded-full text-sm font-medium disabled:opacity-60"
               >
                 Save key
@@ -939,6 +939,9 @@ export default function Admin() {
                 </button>
               )}
             </div>
+            <p className="text-xs text-theme-muted leading-relaxed">
+              A short key is easy to guess. Use a longer unique key when these case studies need privacy.
+            </p>
           </section>
 
           <section className="space-y-4">

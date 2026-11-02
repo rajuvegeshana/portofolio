@@ -12,7 +12,7 @@ The Projects tab controls public listings and protection status. Experience and 
 
 ## Storage and access
 
-Public projects, experience, and About data are in `portfolio_documents`. Full protected case studies are in `portfolio_private_projects`. The access key is stored as a scrypt hash in `portfolio_settings`. Supabase Auth identifies admins, and `portfolio_admin_users` allowlists them. Browser sessions hold admin and unlock tokens in session storage.
+Public projects, experience, and About data are in `portfolio_documents`. Full protected case studies are in `portfolio_private_projects`. The access key can be any non-empty text, including one character, and is stored as a scrypt hash in `portfolio_settings`. Short keys are easy to guess, so use a longer unique key when the case studies need privacy. Supabase Auth identifies admins, and `portfolio_admin_users` allowlists them. Browser sessions hold admin and unlock tokens in session storage.
 
 The tables have RLS enabled and no direct browser grants. The Edge Function uses a server-side key and checks admin access before edits. Protected bodies are returned only after a valid access key or admin sign-in. Do not put protected details in the public listing or publish sensitive screenshots.
 

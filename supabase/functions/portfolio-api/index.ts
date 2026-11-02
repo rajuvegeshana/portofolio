@@ -233,7 +233,7 @@ Deno.serve(async (req: Request) => {
 
     if (method === 'POST' && path === '/api/unlock') {
       if (!await allowedAttempt(req, 'unlock')) return fail(req, 'Too many attempts. Try again in 15 minutes.', 429);
-      const key = String((await body(req))?.key || '');
+      const key = String((await body(req))?.key || '').trim();
       const access = await setting('access');
       if (!access?.keyHash) return fail(req, 'No access key has been set yet.', 409);
       if (!verifySecret(key, access.keyHash)) return fail(req, 'That key is not correct.', 401);
@@ -354,7 +354,7 @@ Deno.serve(async (req: Request) => {
     }
     if (method === 'POST' && path === '/api/lock/key') {
       const key = String((await body(req))?.key || '').trim();
-      if (key.length < 16) return fail(req, 'Use a key of at least 16 characters.', 400);
+      if (!key) return fail(req, 'Enter an access key.', 400);
       await saveSetting('access', { keyHash: hashSecret(key), updatedAt: new Date().toISOString() });
       return reply(req, { success: true });
     }
