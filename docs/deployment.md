@@ -6,7 +6,7 @@ Run `npm ci` and `npm run dev`. The local site reads the hosted Supabase content
 
 ## Content and images
 
-Use the live `/admin` page to edit projects, experience, About content, the protected-case access key, and private case studies. Changes save in Supabase and appear without rebuilding. Upload approved public image exports to the public `portfolio-images` Storage bucket and paste the resulting public URL into the project image fields. Keep confidential images out of the public bucket.
+Use the live `/admin` page to edit projects, experience, About content, the protected-case access key, and private case studies. Changes save in Supabase and appear without rebuilding. Upload approved public image exports to the public `portfolio-images` Storage bucket and paste the resulting public URL into the project image fields. Keep confidential images out of the public bucket. The public résumé PDF lives in the separate `portfolio-documents` bucket. Admin → About controls its download URL; the `?download=filename.pdf` query makes the browser save the file.
 
 ## Static site release
 
