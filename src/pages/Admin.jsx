@@ -226,6 +226,7 @@ function LockedEditor({ project, onSave, onClose, saving }) {
 
 export default function Admin() {
   const [session, setSession] = useState(null);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [signingIn, setSigningIn] = useState(false);
@@ -300,7 +301,7 @@ export default function Admin() {
     setSigningIn(true);
     setAuthError('');
     try {
-      await login(password);
+      await login(email, password);
       setPassword('');
       setSession(true);
     } catch (err) {
@@ -437,7 +438,9 @@ export default function Admin() {
       });
       setCurrentPassword('');
       setNextPassword('');
-      flash('Admin password changed.');
+      await logout();
+      setSession(false);
+      flash('Admin password changed. Sign in again with the new password.');
     } catch (err) {
       fail(err);
     }
@@ -485,10 +488,23 @@ export default function Admin() {
 
         <form onSubmit={handleSignIn} className="space-y-4 bg-theme-card border border-theme-border rounded-xl p-6">
           <div>
+            <label className={label} htmlFor="admin-login-email">Admin email</label>
+            <input
+              id="admin-login-email"
+              type="email"
+              autoComplete="username"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Required for Supabase sign-in"
+              className={field}
+            />
+          </div>
+          <div>
             <label className={label} htmlFor="admin-login-password">Admin password</label>
             <input
               id="admin-login-password"
               type="password"
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoFocus

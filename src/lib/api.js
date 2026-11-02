@@ -2,6 +2,8 @@ const base = import.meta.env.BASE_URL || '/';
 
 let apiUrl = '';
 let basePromise = null;
+const adminTokenKey = 'portfolio_admin_token';
+const unlockTokenKey = 'portfolio_unlock_token';
 
 // The content server can live on a different origin from the static site
 // (GitHub Pages). public/api-config.json tells the bundle where to find it.
@@ -9,6 +11,10 @@ let basePromise = null;
 // under the same path prefix the app is served from.
 export function loadApiBase() {
   if (!basePromise) {
+    if (import.meta.env.DEV) {
+      basePromise = Promise.resolve('');
+      return basePromise;
+    }
     basePromise = fetch(`${base}api-config.json`, { cache: 'no-store' })
       .then((res) => (res.ok ? res.json() : {}))
       .then((cfg) => {
@@ -33,11 +39,15 @@ function apiRoot() {
 
 export async function apiFetch(path, options = {}) {
   await loadApiBase();
+  const adminToken = sessionStorage.getItem(adminTokenKey);
+  const unlockToken = sessionStorage.getItem(unlockTokenKey);
   const res = await fetch(`${apiRoot()}${path}`, {
     credentials: 'include',
     ...options,
     headers: {
       ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+      ...(adminToken ? { Authorization: `Bearer ${adminToken}` } : {}),
+      ...(unlockToken ? { 'X-Portfolio-Unlock': unlockToken } : {}),
       ...(options.headers || {}),
     },
   });
@@ -66,7 +76,22 @@ export const getProject = (slug) => apiFetch(`/projects/${slug}`);
 export const getExperience = () => apiFetch('/experience');
 export const getAbout = () => apiFetch('/about');
 export const getSession = () => apiFetch('/auth/session');
-export const login = (password) => apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ password }) });
-export const logout = () => apiFetch('/auth/logout', { method: 'POST' });
-export const unlock = (key) => apiFetch('/unlock', { method: 'POST', body: JSON.stringify({ key }) });
+export async function login(email, password) {
+  const result = await apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+  if (result?.token) sessionStorage.setItem(adminTokenKey, result.token);
+  return result;
+}
+export async function logout() {
+  try {
+    return await apiFetch('/auth/logout', { method: 'POST' });
+  } finally {
+    sessionStorage.removeItem(adminTokenKey);
+    sessionStorage.removeItem(unlockTokenKey);
+  }
+}
+export async function unlock(key) {
+  const result = await apiFetch('/unlock', { method: 'POST', body: JSON.stringify({ key }) });
+  if (result?.token) sessionStorage.setItem(unlockTokenKey, result.token);
+  return result;
+}
 export const unlockStatus = () => apiFetch('/unlock/status');

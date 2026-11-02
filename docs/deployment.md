@@ -15,8 +15,8 @@ The admin panel is password protected. The first run prints a generated password
 `ADMIN_PASSWORD` before starting to choose your own.
 
 ## 3. Protected Case Studies
-Some case studies are confidential and are not part of the public site bundle. Their full text lives in
-`server/data/locked-projects.json` (never committed) and the public site only carries a redacted stub.
+Some case studies are confidential and are not part of the public site bundle. Their local full text lives in
+`server/data/locked-projects.json` (never committed). The hosted full text belongs in the RLS-protected Supabase table only after an approved import. The public site carries a redacted stub.
 
 - **Set the access key** — Admin → Access Control. One key unlocks every protected case study.
 - **Protect a project** — Admin → Projects → “Protect with key”. The full text moves to the private store.
@@ -29,12 +29,20 @@ The access key is stored as a scrypt hash. The plain key is never written to dis
 1. Run `npm ci` and `npm run build` on the reviewed source.
 2. Publish the contents of `dist/` to the existing `gh-pages` branch. GitHub Pages serves that branch.
 3. Verify the site at `https://rajuvegeshana.github.io/portofolio/`, including direct links to `/about` and case studies.
-4. When a content server is hosted, set `public/api-config.json` to its HTTPS origin, rebuild and republish. Until then, public content works from bundled JSON; protected case studies and admin editing require the local server.
+4. `public/api-config.json` points to the Supabase `portfolio-api` Edge Function. Rebuild and republish when that configuration or site code changes. Text edits made in the hosted admin panel are read live from Supabase.
 
 The static bundle contains redacted stubs for protected case studies. Review the bundle before publishing. Earlier public Git commits may still contain protected text; replacing the live build does not erase that history.
 
-## 5. Hosting the Content Server
-The content server can also run as a hosted service, so the admin dashboard and protected case studies work from
+## 5. Supabase content service
+
+The deployed site uses the `portfolio-api` Edge Function and five private Postgres tables from `supabase/migrations/20261029_portfolio_content.sql`. Direct browser access to the tables is revoked; the function reads with its server-side key. The deployed function must have `verify_jwt = false` because public reads and access-key requests are permitted, and it performs its own authorization for every administrative or protected endpoint.
+
+Public projects, experience, and About data are seeded from `content/*.json`. Create a Supabase Auth user in the project dashboard, then add that user's ID to `portfolio_admin_users`; no user is an admin merely because they signed up. The admin panel uses that account's email and password. Set a fresh protected-case access key in Admin → Access Control. Import protected cases only when approved; local protected JSON and old password hashes are not part of the public repository or static build.
+
+The browser configuration contains only the Edge Function URL. Supabase secret keys stay in the function environment and must never be copied into `public/` or Vite client variables.
+
+## 6. Alternative Express hosting
+The local content server can also run as a hosted service, so the admin dashboard and protected case studies work from
 any device. `render.yaml` describes a Render web service:
 
 ```bash
