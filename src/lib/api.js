@@ -5,24 +5,18 @@ let basePromise = null;
 const adminTokenKey = 'portfolio_admin_token';
 const unlockTokenKey = 'portfolio_unlock_token';
 
-// The content server can live on a different origin from the static site
-// (GitHub Pages). public/api-config.json tells the bundle where to find it.
-// With no apiUrl configured the API is expected on the site's own origin,
-// under the same path prefix the app is served from.
+// public/api-config.json points the static site to its Supabase content API.
 export function loadApiBase() {
   if (!basePromise) {
-    if (import.meta.env.DEV) {
-      basePromise = Promise.resolve('');
-      return basePromise;
-    }
     basePromise = fetch(`${base}api-config.json`, { cache: 'no-store' })
-      .then((res) => (res.ok ? res.json() : {}))
-      .then((cfg) => {
-        apiUrl = String(cfg.apiUrl || '').replace(/\/+$/, '');
-        return apiUrl;
+      .then((res) => {
+        if (!res.ok) throw new Error('Supabase API configuration is unavailable.');
+        return res.json();
       })
-      .catch(() => {
-        apiUrl = '';
+      .then((cfg) => {
+        const configuredUrl = String(cfg.apiUrl || '').replace(/\/+$/, '');
+        if (!configuredUrl.startsWith('https://')) throw new Error('Supabase API URL is not configured.');
+        apiUrl = configuredUrl;
         return apiUrl;
       });
   }

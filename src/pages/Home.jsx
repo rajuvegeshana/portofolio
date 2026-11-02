@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import projectsData from '../../content/projects.json';
-import aboutData from '../../content/about.json';
 import { getAbout, getProjects } from '../lib/api';
 import { ArrowUpRight, Sparkles, Layers, Cpu, Lock } from 'lucide-react';
 import { useTheme } from '../components/ThemeContext';
@@ -19,22 +17,28 @@ function ProjectCover({ project }) {
 
 export default function Home() {
   const { theme } = useTheme();
-  const [aboutContent, setAboutContent] = useState(aboutData);
-  const { hero } = aboutContent;
-  const [projects, setProjects] = useState(projectsData);
+  const [aboutContent, setAboutContent] = useState(null);
+  const [projects, setProjects] = useState(null);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-    getProjects()
-      .then((data) => {
-        if (!cancelled && Array.isArray(data) && data.length) setProjects(data);
+    Promise.all([getProjects(), getAbout()])
+      .then(([projectData, aboutData]) => {
+        if (cancelled) return;
+        if (!Array.isArray(projectData) || !aboutData?.hero) throw new Error('Invalid portfolio content');
+        setProjects(projectData);
+        setAboutContent(aboutData);
       })
-      .catch(() => {});
-    getAbout().then((data) => { if (!cancelled && data?.hero) setAboutContent(data); }).catch(() => {});
+      .catch(() => { if (!cancelled) setLoadError(true); });
     return () => {
       cancelled = true;
     };
   }, []);
+
+  if (loadError) return <div role="alert" className="max-w-4xl mx-auto px-6 py-24 text-center text-theme-muted">Portfolio content is temporarily unavailable. Please try again shortly.</div>;
+  if (!aboutContent || !projects) return <div className="max-w-4xl mx-auto px-6 py-24 text-center text-theme-muted">Loading portfolio…</div>;
+  const { hero } = aboutContent;
 
   const publishedProjects = projects.filter(p => p.status === 'published');
   const featuredProjects = publishedProjects.filter(p => p.isFeatured);

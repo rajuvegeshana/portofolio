@@ -1,74 +1,25 @@
-# Deployment Guide
+# Deployment
 
-## 1. Local Development
-1. Clone the repository.
-2. Install dependencies: `npm install`
-3. Run the development environment: `npm run dev`
-4. Access the site at `http://localhost:3000`
+## Local preview
 
-## 2. Local Content Management (Admin)
-1. Run the local content server: `npm run admin`
-2. Access the Admin Panel at `http://localhost:3000/admin`
-3. Use the dashboard to update projects, experience, and site content. All changes save directly to the `content/` folder.
+Run `npm ci` and `npm run dev`. The local site reads the hosted Supabase content through `public/api-config.json`. It does not maintain a local content database.
 
-The admin panel is password protected. The first run prints a generated password in the terminal; set
-`ADMIN_PASSWORD` before starting to choose your own.
+## Content and images
 
-## 3. Protected Case Studies
-Some case studies are confidential and are not part of the public site bundle. Their local full text lives in
-`server/data/locked-projects.json` (never committed). The hosted full text belongs in the RLS-protected Supabase table only after an approved import. The public site carries a redacted stub.
+Use the live `/admin` page to edit projects, experience, About content, the protected-case access key, and private case studies. Changes save in Supabase and appear without rebuilding. Upload approved public image exports to the public `portfolio-images` Storage bucket and paste the resulting public URL into the project image fields. Keep confidential images out of the public bucket.
 
-- **Set the access key** — Admin → Access Control. One key unlocks every protected case study.
-- **Protect a project** — Admin → Projects → “Protect with key”. The full text moves to the private store.
-- **Edit protected content** — Admin → Access Control → “Edit content”.
-- **Make it public again** — Admin → Projects → “Make public”.
+## Static site release
 
-The access key is stored as a scrypt hash. The plain key is never written to disk after saving.
+1. Run `npm ci` and `npm run build` on reviewed source.
+2. Publish the contents of `dist/` to the existing `gh-pages` branch.
+3. Check the homepage, `/about`, project pages, images, admin login, and protected-case unlock at [the live site](https://rajuvegeshana.github.io/portofolio/).
 
-## 4. GitHub Pages Deployment (static site)
-1. Run `npm ci` and `npm run build` on the reviewed source.
-2. Publish the contents of `dist/` to the existing `gh-pages` branch. GitHub Pages serves that branch.
-3. Verify the site at `https://rajuvegeshana.github.io/portofolio/`, including direct links to `/about` and case studies.
-4. `public/api-config.json` points to the Supabase `portfolio-api` Edge Function. Rebuild and republish when that configuration or site code changes. Text edits made in the hosted admin panel are read live from Supabase.
+The site code and build assets remain on GitHub Pages. Editable content and project image exports are served by Supabase. Rebuild only when site code or `public/api-config.json` changes.
 
-The static bundle contains redacted stubs for protected case studies. Review the bundle before publishing. Earlier public Git commits may still contain protected text; replacing the live build does not erase that history.
+## Supabase service
 
-## 5. Supabase content service
+The `portfolio-api` Edge Function in `supabase/functions/portfolio-api/index.ts` reads and writes the Postgres tables created by `supabase/migrations/20261029_portfolio_content.sql`. It must deploy with `verify_jwt = false` because public reads and access-key requests are allowed; the function performs its own authorization for administrative and protected endpoints. Supabase secret keys stay in the function environment and must never be copied into `public/` or client variables.
 
-The deployed site uses the `portfolio-api` Edge Function and five private Postgres tables from `supabase/migrations/20261029_portfolio_content.sql`. Direct browser access to the tables is revoked; the function reads with its server-side key. The deployed function must have `verify_jwt = false` because public reads and access-key requests are permitted, and it performs its own authorization for every administrative or protected endpoint.
+Supabase Auth users become portfolio admins only when their IDs are added to `portfolio_admin_users`. The public Storage bucket is for approved portfolio images only. Keep protected case studies in `portfolio_private_projects`.
 
-Public projects, experience, and About data are seeded from `content/*.json`. Create a Supabase Auth user in the project dashboard, then add that user's ID to `portfolio_admin_users`; no user is an admin merely because they signed up. The admin panel uses that account's email and password. Set a fresh protected-case access key in Admin → Access Control. Import protected cases only when approved; local protected JSON and old password hashes are not part of the public repository or static build.
-
-The browser configuration contains only the Edge Function URL. Supabase secret keys stay in the function environment and must never be copied into `public/` or Vite client variables.
-
-## 6. Alternative Express hosting
-The local content server can also run as a hosted service, so the admin dashboard and protected case studies work from
-any device. `render.yaml` describes a Render web service:
-
-```bash
-# Render reads render.yaml from the repo root.
-```
-
-Required environment variables:
-
-| Variable | Purpose |
-| --- | --- |
-| `HOST` | `0.0.0.0` on a host, `127.0.0.1` locally. |
-| `PORT` | Defaults to `3001`. |
-| `DATA_DIR` | Persistent disk for private case studies, credentials, and editable public content. Mount a disk here. |
-| `SESSION_SECRET` | Signs the session cookies. Generate a long random value. |
-| `ADMIN_PASSWORD` | The admin dashboard password. Generated and printed in the log if left empty. |
-| `ALLOWED_ORIGINS` | Comma separated origins allowed to make credentialed requests, e.g. `https://rajuvegeshana.github.io`. |
-| `PUBLIC_MODE` | `1` on a host. Purely informational. |
-
-The disk is what makes this work: without a persistent `DATA_DIR`, a redeploy wipes admin edits, protected content,
-and the access key. On first boot, the server seeds editable public JSON from the repository. Later redeploys keep
-the disk copy. The admin panel can import a backup of protected case studies if a disk is lost.
-
-Once the server is up, point the static site at it by editing `public/api-config.json`:
-
-```json
-{ "apiUrl": "https://your-service.onrender.com" }
-```
-
-An empty `apiUrl` means “same origin”, which is what the local dev server and the self-hosted static site use.
+Older public Git commits may still contain protected text. The owner chose to leave that history unchanged.

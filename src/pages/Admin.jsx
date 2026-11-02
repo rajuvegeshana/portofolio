@@ -480,9 +480,9 @@ export default function Admin() {
 
         {serverError && (
           <div className="mb-6 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 text-sm leading-relaxed">
-            The content server is not reachable: {serverError}
+            The Supabase content API is not reachable: {serverError}
             <br />
-            <span className="text-xs">Start it with `npm run admin`, or point public/api-config.json at the hosted server.</span>
+            <span className="text-xs">Check the API URL in public/api-config.json and the Supabase Edge Function status.</span>
           </div>
         )}
 
@@ -781,7 +781,7 @@ export default function Admin() {
                         <textarea id={`${proj.slug}-visuals`} className={`${field} h-28 font-mono`}
                           value={visualsToText(proj.visuals)}
                           onChange={(e) => setProjects((items) => items.map((item, i) => i === idx ? { ...item, visuals: textToVisuals(item.visuals, e.target.value) } : item))} />
-                        <p className="text-xs text-theme-muted mt-1">For Figma exports, use an image path such as images/sitara-dashboard-figma.png and describe the screen in alt text. Leave the image path blank for registered illustrations.</p>
+                        <p className="text-xs text-theme-muted mt-1">For Figma exports, upload an approved image to the Supabase portfolio-images bucket and paste its public URL here. Describe the screen in alt text. Leave the image path blank for registered illustrations.</p>
                       </div>
                     </div>
                   </details>

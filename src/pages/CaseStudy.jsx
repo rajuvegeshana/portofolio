@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import projectsData from '../../content/projects.json';
-import { getProject, unlock } from '../lib/api';
+import { getProject, getProjects, unlock } from '../lib/api';
 import { ArrowLeft, ArrowRight, Target, AlertTriangle, CheckCircle2, Lightbulb, Quote, ListChecks, Layers, Compass, Lock, KeyRound, Route, Gauge, CircleHelp, Images, Users, Blocks } from 'lucide-react';
 import { CaseVisual } from '../components/CaseVisuals';
 
@@ -28,7 +27,7 @@ function KeyGate({ project, onUnlocked }) {
     setError('');
     try {
       await unlock(key);
-      onUnlocked();
+      await onUnlocked();
     } catch (err) {
       setError(err.message);
       setBusy(false);
@@ -86,11 +85,12 @@ export default function CaseStudy() {
   const { slug } = useParams();
   const [state, setState] = useState('loading');
   const [project, setProject] = useState(null);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     let cancelled = false;
-    const staticEntry = projectsData.find((p) => p.slug === slug);
     setState('loading');
+    getProjects().then((data) => { if (!cancelled && Array.isArray(data)) setProjects(data); }).catch(() => {});
 
     getProject(slug)
       .then((data) => {
@@ -101,26 +101,15 @@ export default function CaseStudy() {
       .catch((err) => {
         if (cancelled) return;
         if (err.status === 401 && err.data?.locked) {
-          setProject(err.data.stub || staticEntry);
+          setProject(err.data.stub || null);
           setState('locked');
           return;
         }
         if (err.status === 404) {
-          if (staticEntry && !staticEntry.locked) {
-            setProject(staticEntry);
-            setState('ready');
-          } else {
-            setState(err.data?.locked ? 'unavailable' : 'notfound');
-          }
+          setState(err.data?.locked ? 'unavailable' : 'notfound');
           return;
         }
-        // The content server is unreachable: fall back to what shipped in the bundle.
-        if (staticEntry && !staticEntry.locked) {
-          setProject(staticEntry);
-          setState('ready');
-        } else {
-          setState('unavailable');
-        }
+        setState('unavailable');
       });
 
     return () => {
@@ -169,8 +158,7 @@ export default function CaseStudy() {
         </div>
         <h1 className="text-3xl font-bold mb-4 text-theme-text">Protected case study</h1>
         <p className="text-theme-muted mb-8 leading-relaxed">
-          This case study is only shared through the content server, and it could not be reached from here. If you
-          have the key, try again once the server is reachable.
+          This case study could not be loaded from Supabase. Please try again shortly.
         </p>
         <Link to="/" className="px-6 py-3 bg-theme-accent text-white rounded-full text-sm font-medium">
           Return Home
@@ -179,7 +167,7 @@ export default function CaseStudy() {
     );
   }
 
-  const published = projectsData.filter(p => p.status === 'published');
+  const published = projects.filter(p => p.status === 'published');
   const publishedIdx = published.findIndex(p => p.slug === slug);
   const next = publishedIdx >= 0 ? published[(publishedIdx + 1) % published.length] : null;
 

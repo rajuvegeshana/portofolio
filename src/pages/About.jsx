@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import aboutData from '../../content/about.json';
-import experienceData from '../../content/experience.json';
 import { getAbout, getExperience } from '../lib/api';
 import { Briefcase, GraduationCap, Award, MapPin } from 'lucide-react';
 
 export default function About() {
-  const [aboutContent, setAboutContent] = useState(aboutData);
-  const [experience, setExperience] = useState(experienceData);
-  const { about } = aboutContent;
+  const [aboutContent, setAboutContent] = useState(null);
+  const [experience, setExperience] = useState(null);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let active = true;
-    getAbout().then((data) => { if (active && data?.about) setAboutContent(data); }).catch(() => {});
-    getExperience().then((data) => { if (active && Array.isArray(data)) setExperience(data); }).catch(() => {});
+    Promise.all([getAbout(), getExperience()])
+      .then(([aboutData, experienceData]) => {
+        if (!active) return;
+        if (!aboutData?.about || !aboutData?.hero || !Array.isArray(experienceData)) throw new Error('Invalid portfolio content');
+        setAboutContent(aboutData);
+        setExperience(experienceData);
+      })
+      .catch(() => { if (active) setLoadError(true); });
     return () => { active = false; };
   }, []);
+
+  if (loadError) return <div role="alert" className="max-w-4xl mx-auto px-6 py-24 text-center text-theme-muted">About content is temporarily unavailable. Please try again shortly.</div>;
+  if (!aboutContent || !experience) return <div className="max-w-4xl mx-auto px-6 py-24 text-center text-theme-muted">Loading About…</div>;
+  const { about } = aboutContent;
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">

@@ -1,11 +1,7 @@
 # Implementation status
 
-The public React/Vite portfolio, theme switcher, case-study pages, and local JSON editor are implemented. The site builds for GitHub Pages at `/portofolio/`. A hosted Express content server is prepared through `render.yaml`; when `DATA_DIR` is mounted, it persists edited public JSON, protected case studies, and credentials.
+The portfolio is published on GitHub Pages at `/portofolio/`. Public content, protected case studies, the access-key hash, and three Figma image exports are hosted in Supabase. The live admin panel edits Supabase content. Local preview reads the same hosted content; there is no local content server or JSON data copy in the current source tree.
 
-## Release status
+The static site bundle contains code, styles, and code-based illustrations. It does not contain the project JSON data or the three Figma PNG exports. Earlier public commits still retain protected text because published Git history was left unchanged.
 
-The static build is published through the existing `gh-pages` branch. The current bundle contains redacted public stubs for protected projects. Earlier public commits still retain protected text because published Git history was left unchanged.
-
-If protected case studies or remote admin editing are needed, deploy the content server with a persistent disk, set `ALLOWED_ORIGINS`, configure `public/api-config.json` to its HTTPS origin, then rebuild and republish. Without that server, the public portfolio remains available from bundled JSON and protected case studies remain unavailable online.
-
-After each release, verify direct links, mobile navigation and keyboard access on the deployed site.
+After each code release, check direct links, images, mobile navigation, keyboard access, admin login, and protected-case unlock.
