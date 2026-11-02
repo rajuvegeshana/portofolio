@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAbout, getExperience } from '../lib/api';
-import { Briefcase, GraduationCap, Award, MapPin } from 'lucide-react';
+import { Briefcase, GraduationCap, Blocks, MapPin } from 'lucide-react';
 
 export default function About() {
   const [aboutContent, setAboutContent] = useState(null);
@@ -71,6 +71,26 @@ export default function About() {
           ))}
         </div>
       </section>
+
+      {Array.isArray(about.skills) && about.skills.some((group) => group.title && group.items?.length > 0) && (
+        <section className="mb-20" aria-labelledby="skills-and-tools">
+          <h2 id="skills-and-tools" className="text-2xl font-bold text-theme-text mb-8 flex items-center gap-2">
+            <Blocks className="w-6 h-6 text-theme-accent" aria-hidden="true" /> Skills & tools
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {about.skills.filter((group) => group.title && group.items?.length > 0).map((group, index) => (
+              <div key={`${group.title}-${index}`} className="bg-theme-card border border-theme-border p-6 rounded-xl">
+                <h3 className="font-semibold text-theme-text mb-4">{group.title}</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {group.items.map((item, itemIndex) => (
+                    <li key={`${item}-${itemIndex}`} className="text-xs text-theme-muted border border-theme-border rounded-full px-3 py-1.5">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Mentorship & Leadership */}
       <section className="bg-theme-card border border-theme-border p-8 rounded-xl">

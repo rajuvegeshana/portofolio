@@ -8,7 +8,7 @@ The React/Vite portfolio is hosted on GitHub Pages. Its content API is the Supab
 2. Edit public projects, experience, About content, protected case studies, or the access key.
 3. Save. Text changes appear on the live site without a Git commit or rebuild.
 
-The Projects tab controls public listings and protection status. Experience lets you add, edit, remove, and publish individual roles. About edits the site introduction. Access Control edits the protected-case key and private case-study bodies. Image fields accept the public URL of an asset in the Supabase `portfolio-images` bucket. Upload new approved images to that bucket through the Supabase dashboard, then paste their public URLs in the admin editor.
+The Projects tab controls public listings and protection status. Experience lets you add, edit, remove, and publish individual roles. About edits the site introduction and Skills & tools categories. Access Control edits the protected-case key and private case-study bodies. Image fields accept the public URL of an asset in the Supabase `portfolio-images` bucket. Upload new approved images to that bucket through the Supabase dashboard, then paste their public URLs in the admin editor.
 
 ## Storage and access
 

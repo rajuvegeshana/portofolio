@@ -907,6 +907,38 @@ export default function Admin() {
               )}
             </div>
           ))}
+          <div className="border-t border-theme-border pt-5 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h3 className="font-semibold text-theme-text">Skills & tools</h3>
+              <button type="button"
+                onClick={() => setAboutContent((data) => ({ ...data, about: { ...data.about, skills: [...(data.about.skills || []), { title: '', items: [] }] } }))}
+                className="inline-flex items-center gap-2 px-4 py-2 border border-theme-border rounded-full text-sm font-medium hover:border-theme-accent">
+                <Plus className="w-4 h-4" aria-hidden="true" /> Add category
+              </button>
+            </div>
+            {(aboutContent.about.skills || []).map((group, index) => (
+              <div key={index} className="border border-theme-border rounded-xl p-4 space-y-3">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-xs font-mono text-theme-muted">Category {index + 1}</span>
+                  <button type="button"
+                    onClick={() => setAboutContent((data) => ({ ...data, about: { ...data.about, skills: data.about.skills.filter((_, i) => i !== index) } }))}
+                    className="inline-flex items-center gap-1.5 text-xs text-theme-muted hover:text-red-500">
+                    <Trash2 className="w-4 h-4" aria-hidden="true" /> Remove
+                  </button>
+                </div>
+                <div>
+                  <label className={label} htmlFor={`skill-category-${index}`}>Category name</label>
+                  <input id={`skill-category-${index}`} className={field} value={group.title || ''}
+                    onChange={(e) => setAboutContent((data) => ({ ...data, about: { ...data.about, skills: data.about.skills.map((item, i) => i === index ? { ...item, title: e.target.value } : item) } }))} />
+                </div>
+                <div>
+                  <label className={label} htmlFor={`skill-items-${index}`}>Skills or tools — one per line</label>
+                  <textarea id={`skill-items-${index}`} className={`${field} h-24`} value={listToText(group.items)}
+                    onChange={(e) => setAboutContent((data) => ({ ...data, about: { ...data.about, skills: data.about.skills.map((item, i) => i === index ? { ...item, items: textToList(e.target.value) } : item) } }))} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
