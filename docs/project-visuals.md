@@ -9,3 +9,5 @@ Illustrations summarize public narratives; they are not screenshots of shipped p
 The author confirmed My4 Score is a separate ESG brand-scoring app. Its selected frame shows environmental-topic selection; it does not prove a production launch or scoring outcome. No matching Zenith or Xflow Figma file was found in the accessible account search, so their visuals remain illustrative.
 
 Protected projects use a generic access-controlled illustration. Keep private bodies in the Supabase protected table and avoid publishing confidential product details or images. For new approved image exports, upload to the public `portfolio-images` bucket and paste the public URL into the admin editor, with descriptive alt text.
+
+The public project editor has an optional Figma file URL field. A valid HTTPS Figma design link appears as an “Open in Figma” button beneath the case-study visuals.

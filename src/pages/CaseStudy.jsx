@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProject, getProjects, unlock } from '../lib/api';
-import { ArrowLeft, ArrowRight, Target, AlertTriangle, CheckCircle2, Lightbulb, Quote, ListChecks, Layers, Compass, Lock, KeyRound, Route, Gauge, CircleHelp, Images, Users, Blocks } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Target, AlertTriangle, CheckCircle2, Lightbulb, Quote, ListChecks, Layers, Compass, Lock, KeyRound, Route, Gauge, CircleHelp, Images, Users, Blocks } from 'lucide-react';
 import { CaseVisual } from '../components/CaseVisuals';
+
+function verifiedFigmaUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' &&
+      (url.hostname === 'figma.com' || url.hostname === 'www.figma.com') &&
+      url.pathname.startsWith('/design/') ? url.href : null;
+  } catch {
+    return null;
+  }
+}
 
 function Section({ icon: Icon, title, children }) {
   return (
@@ -170,6 +182,7 @@ export default function CaseStudy() {
   const published = projects.filter(p => p.status === 'published');
   const publishedIdx = published.findIndex(p => p.slug === slug);
   const next = publishedIdx >= 0 ? published[(publishedIdx + 1) % published.length] : null;
+  const figmaUrl = verifiedFigmaUrl(project.figmaUrl);
 
   const meta = [
     { label: 'Role', value: project.role },
@@ -268,6 +281,12 @@ export default function CaseStudy() {
                     </figcaption>
                   </figure>
                 ))}
+                {figmaUrl && (
+                  <a href={figmaUrl} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-theme-border px-4 py-2 text-sm font-semibold text-theme-accent hover:border-theme-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent">
+                    Open in Figma <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  </a>
+                )}
               </div>
             </Section>
           )}

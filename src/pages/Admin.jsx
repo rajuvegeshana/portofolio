@@ -767,6 +767,12 @@ export default function Admin() {
                           onChange={(e) => setProjects((items) => items.map((item, i) => i === idx ? { ...item, visualsTitle: e.target.value } : item))} />
                       </div>
                       <div>
+                        <label className={label} htmlFor={`${proj.slug}-figma-url`}>Figma file URL (optional)</label>
+                        <input id={`${proj.slug}-figma-url`} type="url" className={field} value={proj.figmaUrl || ''}
+                          placeholder="https://www.figma.com/design/..."
+                          onChange={(e) => setProjects((items) => items.map((item, i) => i === idx ? { ...item, figmaUrl: e.target.value } : item))} />
+                      </div>
+                      <div>
                         <label className={label} htmlFor={`${proj.slug}-cover-image`}>Card image path</label>
                         <input id={`${proj.slug}-cover-image`} className={field} value={proj.coverImage || ''}
                           onChange={(e) => setProjects((items) => items.map((item, i) => i === idx ? { ...item, coverImage: e.target.value } : item))} />
