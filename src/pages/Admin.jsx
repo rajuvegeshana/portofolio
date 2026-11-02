@@ -811,10 +811,25 @@ export default function Admin() {
       {/* Experience Editor Tab */}
       {activeTab === 'experience' && (
         <div className="space-y-6">
-          <h2 className="text-xl font-bold text-theme-text">Professional Experience Entries</h2>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-xl font-bold text-theme-text">Professional Experience Entries</h2>
+            <button type="button"
+              onClick={() => setExperience((items) => [...items, { company: '', client: '', role: '', period: '', location: '', status: 'draft', highlights: [] }])}
+              className="inline-flex items-center gap-2 px-4 py-2 border border-theme-border rounded-full text-sm font-medium hover:border-theme-accent">
+              <Plus className="w-4 h-4" aria-hidden="true" /> Add experience
+            </button>
+          </div>
+          <p className="text-xs text-theme-muted">New entries start as drafts. Publish them and save changes when they are ready for the About page.</p>
           <div className="space-y-6">
             {experience.map((exp, idx) => (
               <div key={idx} className="bg-theme-card border border-theme-border p-6 rounded-xl space-y-4">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-xs font-mono text-theme-muted">Experience {idx + 1}</span>
+                  <button type="button" onClick={() => setExperience((items) => items.filter((_, i) => i !== idx))}
+                    className="inline-flex items-center gap-1.5 text-xs text-theme-muted hover:text-red-500">
+                    <Trash2 className="w-4 h-4" aria-hidden="true" /> Remove
+                  </button>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className={label}>Company</label>
@@ -842,6 +857,14 @@ export default function Admin() {
                       className="w-full text-sm bg-theme-bg border border-theme-border rounded p-2"
                     />
                   </div>
+                </div>
+                <div>
+                  <label className={label} htmlFor={`experience-${idx}-status`}>Visibility</label>
+                  <select id={`experience-${idx}-status`} className={field} value={exp.status || 'published'}
+                    onChange={(e) => setExperience((items) => items.map((item, i) => i === idx ? { ...item, status: e.target.value } : item))}>
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                  </select>
                 </div>
                 {[
                   ['role', 'Role'], ['period', 'Period'], ['location', 'Location'],

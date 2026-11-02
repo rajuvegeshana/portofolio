@@ -279,7 +279,7 @@ export default function Home() {
           <div className="p-8 rounded-xl bg-theme-card border border-theme-border">
             <h3 className="text-lg font-bold text-theme-text mb-2">Mentorship</h3>
             <p className="text-sm text-theme-muted leading-relaxed">
-              Mentored {hero.studentsMentored} students and junior designers across UI/UX fundamentals, design systems architecture, and rapid prototyping workflows.
+              Mentored {hero.studentsMentored} students and junior designers in UI/UX fundamentals and design systems.
             </p>
           </div>
         </div>
