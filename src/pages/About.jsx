@@ -6,6 +6,8 @@ export default function About() {
   const [aboutContent, setAboutContent] = useState(null);
   const [experience, setExperience] = useState(null);
   const [loadError, setLoadError] = useState(false);
+  const [expandedExperience, setExpandedExperience] = useState({});
+  const [expandedSkills, setExpandedSkills] = useState({});
 
   useEffect(() => {
     let active = true;
@@ -59,13 +61,20 @@ export default function About() {
                     {exp.period}
                   </span>
                 </div>
-                <ul className="space-y-2 mt-4">
-                  {(exp.highlights || []).map((highlight, hIdx) => (
+                <ul id={`experience-points-${index}`} className="space-y-2 mt-4">
+                  {(exp.highlights || []).slice(0, expandedExperience[index] ? exp.highlights.length : 2).map((highlight, hIdx) => (
                     <li key={hIdx} className="text-sm text-theme-muted flex items-start gap-2">
-                      <span className="text-theme-accent mt-1">▸</span> {highlight}
+                      <span className="text-theme-accent mt-1" aria-hidden="true">▸</span> {highlight}
                     </li>
                   ))}
                 </ul>
+                {(exp.highlights || []).length > 2 && (
+                  <button type="button" aria-controls={`experience-points-${index}`} aria-expanded={!!expandedExperience[index]}
+                    onClick={() => setExpandedExperience((current) => ({ ...current, [index]: !current[index] }))}
+                    className="mt-4 text-sm font-semibold text-theme-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent">
+                    {expandedExperience[index] ? 'View less' : `View more (${exp.highlights.length - 2})`}
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -81,11 +90,18 @@ export default function About() {
             {about.skills.filter((group) => group.title && group.items?.length > 0).map((group, index) => (
               <div key={`${group.title}-${index}`} className="bg-theme-card border border-theme-border p-6 rounded-xl">
                 <h3 className="font-semibold text-theme-text mb-4">{group.title}</h3>
-                <ul className="flex flex-wrap gap-2">
-                  {group.items.map((item, itemIndex) => (
+                <ul id={`skill-items-${index}`} className="flex flex-wrap gap-2">
+                  {group.items.slice(0, expandedSkills[index] ? group.items.length : 4).map((item, itemIndex) => (
                     <li key={`${item}-${itemIndex}`} className="text-xs text-theme-muted border border-theme-border rounded-full px-3 py-1.5">{item}</li>
                   ))}
                 </ul>
+                {group.items.length > 4 && (
+                  <button type="button" aria-controls={`skill-items-${index}`} aria-expanded={!!expandedSkills[index]}
+                    onClick={() => setExpandedSkills((current) => ({ ...current, [index]: !current[index] }))}
+                    className="mt-4 text-sm font-semibold text-theme-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent">
+                    {expandedSkills[index] ? 'View less' : `View more (${group.items.length - 4})`}
+                  </button>
+                )}
               </div>
             ))}
           </div>
