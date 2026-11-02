@@ -907,6 +907,13 @@ export default function Admin() {
               )}
             </div>
           ))}
+          <div className="border-t border-theme-border pt-5">
+            <label className={label} htmlFor="about-resume-url">Résumé PDF download URL (optional)</label>
+            <input id="about-resume-url" type="url" inputMode="url" className={field}
+              value={aboutContent.about.resumeUrl || ''} placeholder="https://…/Harikrishna-Raju-Resume.pdf?download=…"
+              onChange={(e) => setAboutContent((data) => ({ ...data, about: { ...data.about, resumeUrl: e.target.value.trim() } }))} />
+            <p className="text-xs text-theme-muted mt-2">Upload the approved PDF to Supabase Storage, then paste its public download URL. The button appears only when this field has a valid HTTPS URL.</p>
+          </div>
           <div className="border-t border-theme-border pt-5 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h3 className="font-semibold text-theme-text">Skills & tools</h3>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAbout, getExperience } from '../lib/api';
-import { Briefcase, GraduationCap, Blocks, MapPin } from 'lucide-react';
+import { Briefcase, GraduationCap, Blocks, MapPin, Download } from 'lucide-react';
 
 export default function About() {
   const [aboutContent, setAboutContent] = useState(null);
@@ -25,6 +25,14 @@ export default function About() {
   if (loadError) return <div role="alert" className="max-w-4xl mx-auto px-6 py-24 text-center text-theme-muted">About content is temporarily unavailable. Please try again shortly.</div>;
   if (!aboutContent || !experience) return <div className="max-w-4xl mx-auto px-6 py-24 text-center text-theme-muted">Loading About…</div>;
   const { about } = aboutContent;
+  const resumeUrl = (() => {
+    try {
+      const url = new URL(about.resumeUrl);
+      return url.protocol === 'https:' ? url.href : '';
+    } catch {
+      return '';
+    }
+  })();
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">
@@ -36,8 +44,16 @@ export default function About() {
         <p className="text-xl text-theme-muted leading-relaxed">
           {about.summary}
         </p>
-        <div className="flex items-center gap-2 mt-4 text-sm text-theme-muted font-mono">
-          <MapPin className="w-4 h-4 text-theme-accent" /> {about.location}
+        <div className="flex flex-wrap items-center gap-4 mt-4">
+          <div className="flex items-center gap-2 text-sm text-theme-muted font-mono">
+            <MapPin className="w-4 h-4 text-theme-accent" aria-hidden="true" /> {about.location}
+          </div>
+          {resumeUrl && (
+            <a href={resumeUrl} download="Harikrishna-Raju-Resume.pdf"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-theme-accent text-white rounded-full text-sm font-medium hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent">
+              <Download className="w-4 h-4" aria-hidden="true" /> Download résumé (PDF)
+            </a>
+          )}
         </div>
       </section>
 
