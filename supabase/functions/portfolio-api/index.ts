@@ -51,6 +51,36 @@ async function body(req: Request) {
   return raw ? JSON.parse(raw) : null;
 }
 
+async function readResumePdf(req: Request) {
+  const maxBytes = 5 * 1024 * 1024;
+  const declaredSize = Number(req.headers.get('content-length'));
+  if (Number.isFinite(declaredSize) && declaredSize > maxBytes) return null;
+  if (!req.body) return null;
+
+  const chunks: Uint8Array[] = [];
+  const reader = req.body.getReader();
+  let size = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > maxBytes) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+  if (size < 8) return null;
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  if (new TextDecoder().decode(bytes.subarray(0, 5)) !== '%PDF-') return null;
+  return bytes;
+}
+
 function toStub(project: Record<string, unknown>) {
   const stub: Record<string, unknown> = {};
   for (const field of stubFields) if (field in project) stub[field] = project[field];
@@ -301,6 +331,34 @@ Deno.serve(async (req: Request) => {
       }
       await saveDocument('about', incoming);
       return reply(req, { success: true });
+    }
+    if (method === 'POST' && path === '/api/resume') {
+      if (req.headers.get('content-type')?.split(';')[0].trim().toLowerCase() !== 'application/pdf') {
+        return fail(req, 'Choose a PDF file.', 415);
+      }
+      const bytes = await readResumePdf(req);
+      if (!bytes) return fail(req, 'Choose a valid PDF under 5 MB.', 400);
+      const current = await document('about', {});
+      if (!current?.about || !current?.hero) return fail(req, 'About content is unavailable.', 409);
+
+      const objectPath = `resumes/Harikrishna_Raju_CV_${Date.now()}_${randomBytes(4).toString('hex')}.pdf`;
+      const bucket = db.storage.from('portfolio-documents');
+      const { error: uploadError } = await bucket.upload(objectPath, bytes, {
+        contentType: 'application/pdf', cacheControl: '3600', upsert: false,
+      });
+      if (uploadError) throw uploadError;
+
+      const publicUrl = new URL(bucket.getPublicUrl(objectPath).data.publicUrl);
+      publicUrl.searchParams.set('download', 'Harikrishna_Raju_Product_Designer_CV.pdf');
+      const resumeUrl = publicUrl.toString();
+      try {
+        await saveDocument('about', { ...current, about: { ...current.about, resumeUrl } });
+      } catch (error) {
+        const { error: cleanupError } = await bucket.remove([objectPath]);
+        if (cleanupError) console.error('Resume upload cleanup failed', cleanupError);
+        throw error;
+      }
+      return reply(req, { success: true, resumeUrl });
     }
     if (method === 'GET' && path === '/api/private/projects') return reply(req, await privateProjects());
 

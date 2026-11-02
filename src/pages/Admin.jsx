@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Save, Plus, Trash2, CheckCircle2, AlertCircle, Lock, Unlock, KeyRound, LogOut, Eye, EyeOff, Upload } from 'lucide-react';
 import { apiFetch, getSession, login, logout } from '../lib/api';
 
@@ -244,6 +244,9 @@ export default function Admin() {
   const [statusMessage, setStatusMessage] = useState('');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [cvFile, setCvFile] = useState(null);
+  const [uploadingCv, setUploadingCv] = useState(false);
+  const cvInputRef = useRef(null);
 
   const [newKey, setNewKey] = useState('');
   const [showKey, setShowKey] = useState(false);
@@ -355,6 +358,28 @@ export default function Admin() {
       fail(err);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const uploadCv = async () => {
+    if (!cvFile) return;
+    if (!cvFile.name.toLowerCase().endsWith('.pdf') || (cvFile.type && cvFile.type !== 'application/pdf') || cvFile.size > 5 * 1024 * 1024) {
+      fail(new Error('Choose a PDF file under 5 MB.'));
+      return;
+    }
+    setUploadingCv(true);
+    try {
+      const result = await apiFetch('/resume', {
+        method: 'POST', body: cvFile, headers: { 'Content-Type': 'application/pdf' },
+      });
+      setAboutContent((data) => ({ ...data, about: { ...data.about, resumeUrl: result.resumeUrl } }));
+      setCvFile(null);
+      if (cvInputRef.current) cvInputRef.current.value = '';
+      flash('Résumé uploaded. The public download button now uses this PDF.');
+    } catch (err) {
+      fail(err);
+    } finally {
+      setUploadingCv(false);
     }
   };
 
@@ -551,7 +576,7 @@ export default function Admin() {
             </button>
           )}
           {activeTab === 'about' && (
-            <button onClick={saveAbout} disabled={saving || !aboutContent} className="inline-flex items-center gap-2 px-6 py-2.5 bg-theme-accent text-white rounded-full text-sm font-medium disabled:opacity-60">
+            <button onClick={saveAbout} disabled={saving || !aboutContent || uploadingCv} className="inline-flex items-center gap-2 px-6 py-2.5 bg-theme-accent text-white rounded-full text-sm font-medium disabled:opacity-60">
               <Save className="w-4 h-4" /> Save Changes
             </button>
           )}
@@ -907,12 +932,25 @@ export default function Admin() {
               )}
             </div>
           ))}
-          <div className="border-t border-theme-border pt-5">
-            <label className={label} htmlFor="about-resume-url">Résumé PDF download URL (optional)</label>
-            <input id="about-resume-url" type="url" inputMode="url" className={field}
-              value={aboutContent.about.resumeUrl || ''} placeholder="https://…/Harikrishna-Raju-Resume.pdf?download=…"
-              onChange={(e) => setAboutContent((data) => ({ ...data, about: { ...data.about, resumeUrl: e.target.value.trim() } }))} />
-            <p className="text-xs text-theme-muted mt-2">Upload the approved PDF to Supabase Storage, then paste its public download URL. The button appears only when this field has a valid HTTPS URL.</p>
+          <div className="border-t border-theme-border pt-5 space-y-3">
+            <h3 className="font-semibold text-theme-text">Résumé PDF</h3>
+            <p className="text-xs text-theme-muted">Upload a public PDF up to 5 MB. It will replace the résumé linked from the site header and About page.</p>
+            <label className={label} htmlFor="about-resume-file">Choose PDF</label>
+            <input ref={cvInputRef} id="about-resume-file" type="file" accept="application/pdf,.pdf" className={`${field} file:mr-3 file:rounded-full file:border-0 file:bg-theme-accent file:px-3 file:py-1 file:text-white`}
+              onChange={(e) => setCvFile(e.target.files?.[0] || null)} />
+            <button type="button" onClick={uploadCv} disabled={!cvFile || uploadingCv || saving}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-theme-accent text-white text-sm font-medium disabled:opacity-50">
+              <Upload className="w-4 h-4" aria-hidden="true" /> {uploadingCv ? 'Uploading…' : 'Upload résumé PDF'}
+            </button>
+            {aboutContent.about.resumeUrl && <p className="text-xs text-theme-muted break-all">Current PDF: <a href={aboutContent.about.resumeUrl} className="text-theme-accent underline">Download current PDF</a></p>}
+            <details className="text-xs text-theme-muted">
+              <summary className="cursor-pointer">Use an existing PDF URL instead</summary>
+              <label className={`${label} mt-3`} htmlFor="about-resume-url">Public PDF download URL</label>
+              <input id="about-resume-url" type="url" inputMode="url" className={field}
+                value={aboutContent.about.resumeUrl || ''} placeholder="https://…/resume.pdf?download=resume.pdf"
+                onChange={(e) => setAboutContent((data) => ({ ...data, about: { ...data.about, resumeUrl: e.target.value.trim() } }))} />
+              <p className="mt-2">Save Changes to use a pasted URL. Uploading a PDF saves its link automatically.</p>
+            </details>
           </div>
           <div className="border-t border-theme-border pt-5 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
