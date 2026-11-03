@@ -4,6 +4,7 @@ import { getProject, getProjects, unlock } from '../lib/api';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Target, AlertTriangle, CheckCircle2, Lightbulb, Quote, ListChecks, Layers, Compass, Lock, KeyRound, Route, Gauge, CircleHelp, Images, Users, Blocks } from 'lucide-react';
 import { CaseVisual } from '../components/CaseVisuals';
 import DesignProcessDiagram from '../components/DesignProcessDiagram';
+import SitaraProcessStory from '../components/SitaraProcessStory';
 
 function verifiedFigmaUrl(value) {
   if (!value) return null;
@@ -258,7 +259,13 @@ export default function CaseStudy() {
             </Section>
           )}
 
-          {Array.isArray(project.designProcess) && project.designProcess.length > 0 && (
+          {project.slug === 'sitara' && (
+            <Section icon={Route} title="From research to interface">
+              <SitaraProcessStory project={project} />
+            </Section>
+          )}
+
+          {project.slug !== 'sitara' && Array.isArray(project.designProcess) && project.designProcess.length > 0 && (
             <Section icon={Route} title="Design process">
               <DesignProcessDiagram steps={project.designProcess} />
             </Section>
