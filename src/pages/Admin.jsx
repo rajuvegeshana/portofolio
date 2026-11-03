@@ -93,6 +93,14 @@ function ProjectContextFields({ project, onChange }) {
           onChange={(e) => onChange('designContributionEstimate', e.target.checked)} />
         Mark this percentage as an estimate
       </label>
+      <div>
+        <label className={label} htmlFor={`${project.slug}-design-process`}>Design process diagram — one step per line as Title || Description</label>
+        <textarea id={`${project.slug}-design-process`} className={`${field} h-36 font-mono`}
+          value={decisionsToText(project.designProcess)}
+          onChange={(e) => onChange('designProcess', textToDecisions(e.target.value))}
+          placeholder="Define the problem || Describe the documented work" />
+        <p className="mt-1 text-xs text-theme-muted">Add only steps supported by the project record. Protected project steps stay in the protected editor.</p>
+      </div>
     </div>
   );
 }

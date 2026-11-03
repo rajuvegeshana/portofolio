@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getProject, getProjects, unlock } from '../lib/api';
 import { ArrowLeft, ArrowRight, ArrowUpRight, Target, AlertTriangle, CheckCircle2, Lightbulb, Quote, ListChecks, Layers, Compass, Lock, KeyRound, Route, Gauge, CircleHelp, Images, Users, Blocks } from 'lucide-react';
 import { CaseVisual } from '../components/CaseVisuals';
+import DesignProcessDiagram from '../components/DesignProcessDiagram';
 
 function verifiedFigmaUrl(value) {
   if (!value) return null;
@@ -254,6 +255,12 @@ export default function CaseStudy() {
                   <p>{project.designSystem}</p>
                 </div>
               )}
+            </Section>
+          )}
+
+          {Array.isArray(project.designProcess) && project.designProcess.length > 0 && (
+            <Section icon={Route} title="Design process">
+              <DesignProcessDiagram steps={project.designProcess} />
             </Section>
           )}
 
