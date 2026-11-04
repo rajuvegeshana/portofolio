@@ -12,6 +12,8 @@ const translations = [
   { friction: 'Seven modules can drift apart', decision: 'Reuse a common component language', structure: 'Common UI foundation' },
 ];
 
+const modules = ['CRM', 'HR', 'Inventory', 'After-sales', 'Projects', 'Learning', 'Operations'];
+
 function StepLabel({ number, children }) {
   return <p className="mb-4 flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-theme-accent"><span className="rounded-full border border-theme-accent/50 px-2 py-0.5">{number}</span>{children}</p>;
 }
@@ -51,6 +53,48 @@ function WireframeSketch() {
   );
 }
 
+function AudienceJourney() {
+  return (
+    <div className="mt-5 rounded-xl border border-theme-border bg-theme-bg p-4 sm:p-5">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <h3 className="text-sm font-semibold text-theme-text">One person, several jobs</h3>
+        <span className="text-[10px] font-mono uppercase tracking-wider text-theme-muted">Audience model from the brief</span>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-center">
+        {['Answer a customer', 'Check stock', 'Follow a project'].map((task, index) => (
+          <React.Fragment key={task}>
+            {index > 0 && <span className="hidden text-center text-xs font-mono text-theme-accent sm:block" aria-hidden="true">→</span>}
+            <div className="rounded-lg border border-theme-border px-3 py-3 text-center text-xs font-medium text-theme-text">{task}</div>
+            {index < 2 && <ArrowDown className="mx-auto h-4 w-4 text-theme-accent sm:hidden" aria-hidden="true" />}
+          </React.Fragment>
+        ))}
+      </div>
+      <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+        <span className="rounded-full border border-theme-border px-3 py-1 text-theme-muted">Tool boundary</span>
+        <ArrowRight className="h-3 w-3 text-theme-accent" aria-hidden="true" />
+        <span className="rounded-full border border-theme-accent/40 bg-theme-accent/10 px-3 py-1 font-semibold text-theme-accent">Context can be lost</span>
+      </div>
+      <p className="mt-3 text-xs text-theme-muted">This illustrates the continuity problem described in the case study; it is not a tested journey map or a formal persona.</p>
+    </div>
+  );
+}
+
+function SuiteArchitecture() {
+  return (
+    <div className="mt-5 rounded-xl border border-theme-accent/40 bg-theme-bg p-4 sm:p-5">
+      <div className="mx-auto max-w-sm rounded-xl border border-theme-accent bg-theme-accent/10 px-4 py-3 text-center">
+        <p className="text-xs font-mono uppercase tracking-wider text-theme-accent">Shared product shell</p>
+        <p className="mt-1 text-sm font-semibold text-theme-text">Navigation · Record pattern · Components</p>
+      </div>
+      <div className="mx-auto h-5 w-px bg-theme-accent/50" aria-hidden="true" />
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {modules.map((module) => <div key={module} className="rounded-lg border border-theme-border bg-theme-card px-3 py-3 text-center text-xs font-semibold text-theme-text">{module}</div>)}
+      </div>
+      <p className="mt-3 text-xs text-theme-muted">Seven modules use one design language. This is a structural map, not a production system diagram.</p>
+    </div>
+  );
+}
+
 export default function SitaraProcessStory({ project }) {
   const designImage = project.visuals?.find((visual) => visual.type === 'image' && visual.src);
 
@@ -75,6 +119,7 @@ export default function SitaraProcessStory({ project }) {
             <p className="text-base font-semibold leading-snug text-theme-text">How can those tasks stay connected as one product?</p>
           </div>
         </div>
+        <AudienceJourney />
       </div>
 
       <Connector />
@@ -108,6 +153,7 @@ export default function SitaraProcessStory({ project }) {
             </div>
           ))}
         </div>
+        <SuiteArchitecture />
       </div>
 
       <Connector />

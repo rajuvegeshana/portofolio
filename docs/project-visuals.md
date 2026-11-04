@@ -6,7 +6,7 @@ Sitara, Fingo, and My4 Score use exported Figma frames hosted in the public Supa
 
 Illustrations summarize public narratives; they are not screenshots of shipped products or evidence of measured outcomes. Keep the “Illustrative visual” label and explicit case-study captions. Figma exports are labeled “Figma design” so they are not mistaken for shipped screenshots.
 
-Sitara has a custom visual research-to-interface story using its documented workflow mapping, competitor review, design decisions, Figma frame, and live-user mockup testing. Its small wireframe sketch is explicitly labeled a conceptual reconstruction because original wireframes have not been provided. Interview records, participant counts, and formal persona artifacts remain undocumented and must not be implied by the diagram.
+Sitara has a custom visual research-to-interface story using its documented workflow mapping, competitor review, design decisions, Figma frame, and live-user mockup testing. Its audience journey, shared-suite architecture, and small wireframe sketch are explicitly labeled conceptual reconstructions because source persona, journey-map, and wireframe artifacts have not been provided. Interview records, participant counts, and formal persona artifacts remain undocumented and must not be implied by the diagram.
 
 The author confirmed My4 Score is a separate ESG brand-scoring app. Its selected frame shows environmental-topic selection; it does not prove a production launch or scoring outcome. No matching Zenith or Xflow Figma file was found in the accessible account search, so their visuals remain illustrative.
 
