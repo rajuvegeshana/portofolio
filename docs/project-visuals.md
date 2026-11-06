@@ -12,4 +12,6 @@ The author confirmed My4 Score is a separate ESG brand-scoring app. Its selected
 
 Protected projects use a generic access-controlled illustration. Keep private bodies in the Supabase protected table and avoid publishing confidential product details or images. For new approved image exports, upload to the public `portfolio-images` bucket and paste the public URL into the admin editor, with descriptive alt text.
 
+The richer process stories for other projects use `processStory` fields in Supabase. Each panel links documented inputs to decisions and a conceptual structure map, then states the known review or delivery status. The four protected stories exist only in `portfolio_private_projects`; public stubs contain no process details. When a source Figma frame exists in the public project record, the story can show that image with its existing caption.
+
 The public project editor has an optional Figma file URL field. A valid HTTPS Figma design link appears as an “Open in Figma” button beneath the case-study visuals.

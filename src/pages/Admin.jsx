@@ -21,6 +21,72 @@ const textToDecisions = (text) =>
       return { title: title.trim(), body: rest.join('||').trim() };
     });
 
+const storyRowsToText = (items) =>
+  (Array.isArray(items) ? items : []).map((item) => `${item.from || ''} || ${item.decision || ''} || ${item.output || ''}`).join('\n');
+const textToStoryRows = (text) => text.split('\n').map((line) => line.trim()).filter(Boolean).map((line) => {
+  const [from, decision, ...output] = line.split('||');
+  return { from: from.trim(), decision: (decision || '').trim(), output: output.join('||').trim() };
+});
+
+function VisualStoryFields({ project, onChange }) {
+  const story = project.processStory || {};
+  const set = (key, value) => onChange('processStory', { ...story, [key]: value });
+  const shortFields = [
+    ['question', 'Design question'],
+    ['inputNote', 'Source limitations'],
+    ['connectionNote', 'Decision context'],
+    ['conceptTitle', 'Structure title'],
+    ['conceptCenter', 'Center label for hub diagram'],
+    ['conceptNote', 'Structure caption'],
+    ['validationTitle', 'Review or delivery heading'],
+    ['validationNote', 'Review or delivery status'],
+  ];
+
+  return (
+    <details className="border-t border-theme-border pt-4">
+      <summary className="cursor-pointer text-sm font-semibold text-theme-text">Visual process story</summary>
+      <div className="mt-4 space-y-4">
+        <p className="text-xs text-theme-muted">The visual story uses documented project inputs and decisions. Protected case studies keep these fields in the private record.</p>
+        <div>
+          <label className={label} htmlFor={`${project.slug}-story-problems`}>Problem cues — one per line</label>
+          <textarea id={`${project.slug}-story-problems`} className={`${field} h-24`} value={listToText(story.problemNodes)} onChange={(e) => set('problemNodes', textToList(e.target.value))} />
+        </div>
+        {shortFields.map(([key, title]) => (
+          <div key={key}>
+            <label className={label} htmlFor={`${project.slug}-story-${key}`}>{title}</label>
+            <input id={`${project.slug}-story-${key}`} className={field} value={story[key] || ''} onChange={(e) => set(key, e.target.value)} />
+          </div>
+        ))}
+        <div>
+          <label className={label} htmlFor={`${project.slug}-story-inputs`}>Sources and methods — Title || Detail per line</label>
+          <textarea id={`${project.slug}-story-inputs`} className={`${field} h-28 font-mono`} value={(story.inputs || []).map((item) => `${item.title} || ${item.detail || ''}`).join('\n')}
+            onChange={(e) => set('inputs', textToDecisions(e.target.value).map((item) => ({ title: item.title, detail: item.body })))} />
+        </div>
+        <div>
+          <label className={label} htmlFor={`${project.slug}-story-connections`}>Input → decision → structure — Input || Decision || Structure per line</label>
+          <textarea id={`${project.slug}-story-connections`} className={`${field} h-32 font-mono`} value={storyRowsToText(story.connections)} onChange={(e) => set('connections', textToStoryRows(e.target.value))} />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className={label} htmlFor={`${project.slug}-story-variant`}>Structure diagram layout</label>
+            <select id={`${project.slug}-story-variant`} className={field} value={story.conceptVariant || 'flow'} onChange={(e) => set('conceptVariant', e.target.value)}>
+              <option value="flow">Sequence</option><option value="hub">Shared center and parts</option>
+            </select>
+          </div>
+          <div>
+            <label className={label} htmlFor={`${project.slug}-story-nodes`}>Structure steps — one per line</label>
+            <textarea id={`${project.slug}-story-nodes`} className={`${field} h-24`} value={listToText(story.conceptNodes)} onChange={(e) => set('conceptNodes', textToList(e.target.value))} />
+          </div>
+        </div>
+        <div>
+          <label className={label} htmlFor={`${project.slug}-story-validation`}>Review or delivery steps — one per line</label>
+          <textarea id={`${project.slug}-story-validation`} className={`${field} h-24`} value={listToText(story.validationSteps)} onChange={(e) => set('validationSteps', textToList(e.target.value))} />
+        </div>
+      </div>
+    </details>
+  );
+}
+
 const visualsToText = (items) =>
   (Array.isArray(items) ? items : []).map((v) => `${v.id} || ${v.label || ''} || ${v.caption || ''} || ${v.src || ''} || ${v.alt || ''}`).join('\n');
 const textToVisuals = (items, text) => {
@@ -101,6 +167,7 @@ function ProjectContextFields({ project, onChange }) {
           placeholder="Define the problem || Describe the documented work" />
         <p className="mt-1 text-xs text-theme-muted">Add only steps supported by the project record. Protected project steps stay in the protected editor.</p>
       </div>
+      <VisualStoryFields project={project} onChange={onChange} />
     </div>
   );
 }

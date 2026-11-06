@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Target, AlertTriangle, CheckCircle
 import { CaseVisual } from '../components/CaseVisuals';
 import DesignProcessDiagram from '../components/DesignProcessDiagram';
 import SitaraProcessStory from '../components/SitaraProcessStory';
+import CaseProcessStory from '../components/CaseProcessStory';
 
 function verifiedFigmaUrl(value) {
   if (!value) return null;
@@ -185,6 +186,9 @@ export default function CaseStudy() {
   const publishedIdx = published.findIndex(p => p.slug === slug);
   const next = publishedIdx >= 0 ? published[(publishedIdx + 1) % published.length] : null;
   const figmaUrl = verifiedFigmaUrl(project.figmaUrl);
+  const hasProcessStory = project.slug !== 'sitara' &&
+    Array.isArray(project.processStory?.inputs) && project.processStory.inputs.length > 0 &&
+    Array.isArray(project.processStory?.connections) && project.processStory.connections.length > 0;
 
   const meta = [
     { label: 'Role', value: project.role },
@@ -265,7 +269,13 @@ export default function CaseStudy() {
             </Section>
           )}
 
-          {project.slug !== 'sitara' && Array.isArray(project.designProcess) && project.designProcess.length > 0 && (
+          {hasProcessStory && (
+            <Section icon={Route} title="From problem to design">
+              <CaseProcessStory project={project} />
+            </Section>
+          )}
+
+          {project.slug !== 'sitara' && !hasProcessStory && Array.isArray(project.designProcess) && project.designProcess.length > 0 && (
             <Section icon={Route} title="Design process">
               <DesignProcessDiagram steps={project.designProcess} />
             </Section>
